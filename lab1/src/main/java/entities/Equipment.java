@@ -1,7 +1,6 @@
 package main.java.entities;
 
-public class Equipment {
-  private int id;
+public class Equipment extends GenericEntity<String, Equipment> {
   private String name;
 
   {
@@ -9,14 +8,6 @@ public class Equipment {
   }
 
   public Equipment() {}
-
-  public int getId() {
-    return id;
-  }
-
-  public void setId(int id) {
-    this.id = id;
-  }
 
   public String getName() {
     return name;

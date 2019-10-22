@@ -1,7 +1,6 @@
 package main.java.entities;
 
-public class Elective {
-  private int id;
+public class Elective extends GenericEntity<String, Elective> {
   private Subject subject;
   private Circumstance[] circumstances;
   private Equipment[] equipment;
@@ -12,15 +11,7 @@ public class Elective {
     
   }
   
-  Elective() {}
-
-  public int getId() {
-    return id;
-  }
-
-  public void setId(int id) {
-    this.id = id;
-  }
+  public Elective() {}
 
   public Subject getSubject() {
     return subject;

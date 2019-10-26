@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="13" class="java.beans.XMLDecoder">
+ <object class="java.util.TreeSet">
+  <void method="add">
+   <object class="main.java.entities.Student">
+    <void property="id">
+     <string>a</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="main.java.entities.Student">
+    <void property="id">
+     <string>b</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="main.java.entities.Teacher">
+    <void property="id">
+     <string>c</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="main.java.entities.Circumstance">
+    <void property="id">
+     <string>d</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="main.java.entities.Elective">
+    <void property="id">
+     <string>e</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="main.java.entities.Equipment">
+    <void property="id">
+     <string>f</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="main.java.entities.Subject">
+    <void property="id">
+     <string>g</string>
+    </void>
+   </object>
+  </void>
+ </object>
+</java>

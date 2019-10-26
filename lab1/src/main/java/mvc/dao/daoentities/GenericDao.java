@@ -1,6 +1,6 @@
 package main.java.mvc.dao.daoentities;
 
-import main.java.interfaces.Identifiable;
+import main.java.entities.GenericEntity;
 import main.java.mvc.dao.DaoInterface;
 
 import java.beans.XMLDecoder;
@@ -15,7 +15,7 @@ import java.util.TreeSet;
 
 public abstract class GenericDao<
                                   K extends Serializable,
-                                  T extends Identifiable<K> & Comparable
+                                  T extends GenericEntity
                                 >
     implements DaoInterface<K, T> {
     
@@ -30,15 +30,18 @@ public abstract class GenericDao<
       System.out.println("File src/main/resources/db.xml not found");
       return null;
     }
-    TreeSet<T> identifiedObjects = null;
+    TreeSet<GenericEntity> identifiedObjects = null;
     try {
-      identifiedObjects = (TreeSet<T>)decoder.readObject();
+      identifiedObjects = (TreeSet<GenericEntity>)decoder.readObject();
     } catch (ArrayIndexOutOfBoundsException ex) {
       // e.g. file was empty
     }
     decoder.close();
     if(identifiedObjects == null) {
       identifiedObjects = new TreeSet<>();
+    }
+    if(identifiedObjects.contains(obj)) {
+      return null;
     }
     identifiedObjects.add(obj);
     XMLEncoder encoder = null;

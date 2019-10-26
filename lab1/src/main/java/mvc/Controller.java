@@ -67,15 +67,15 @@ public class Controller {
     model.create(Tmp, objId);
   }
 
-  private void read(String name) {
+  private void read(String objId) {
+    model.read(objId);
+  }
+
+  private void update(String objId) {
     
   }
 
-  private void update(String name) {
-    
-  }
-
-  private void delete(String name) {
+  private void delete(String objId) {
 
   }
 }

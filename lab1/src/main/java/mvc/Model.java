@@ -15,7 +15,6 @@ class Model {
   Model(){}
 
   void create(Class Tmp, String objId) {
-    // TODO: 22.10.2019 create dao for Tmp and dao.create(objId)
     DaoInterface daoTmp = daoFactory.getDao(Tmp);
     Object obj = daoTmp.create(objId);
     if(obj == null) {
@@ -25,15 +24,15 @@ class Model {
     }
   }
 
-  void read(int objNumber) {
+  void read(String objId) {
+    //DaoInterface daoTmp = daoFactory.getDao();
+  }
+
+  void update(String objId) {
     
   }
 
-  void update(int fieldNumber, String newValue) {
-    
-  }
-
-  void delete(String name) {
+  void delete(String objId) {
     
   }
 }

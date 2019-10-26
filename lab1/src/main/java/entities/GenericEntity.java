@@ -4,12 +4,14 @@ import main.java.interfaces.Identifiable;
 
 import java.io.Serializable;
 
-public abstract class GenericEntity<
+public class GenericEntity<
                                      K extends Serializable,
                                      T extends Identifiable<K> & Comparable<T>
                                    >
     implements Identifiable<K>, Comparable<T> {
   private K id;
+  
+  public GenericEntity() {}
   
   @Override
   public int compareTo(T obj) {

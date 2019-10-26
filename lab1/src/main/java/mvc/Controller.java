@@ -57,6 +57,10 @@ public class Controller {
   }
 
   private void create (String className, String objId) {
+    if(className.equals("GenericEntity")) {
+      System.out.printf("Unknown class %s\n", className);
+      return;
+    }
     Class Tmp = null;
     try {
       Tmp = Class.forName("main.java.entities.".concat(className));

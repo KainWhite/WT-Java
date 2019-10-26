@@ -14,6 +14,7 @@ public class DaoFactory implements DaoFactoryInterface {
     creators.put(Circumstance.class, () -> new DaoCircumstance());
     creators.put(Elective.class, () -> new DaoElective());
     creators.put(Equipment.class, () -> new DaoEquipment());
+    creators.put(GenericEntity.class, () -> new DaoGenericEntity());
     creators.put(Student.class, () -> new DaoStudent());
     creators.put(Subject.class, () -> new DaoSubject());
     creators.put(Teacher.class, () -> new DaoTeacher());

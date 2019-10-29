@@ -1,7 +1,19 @@
 package main.java.mvc.dao;
 
-import main.java.entities.*;
-import main.java.mvc.dao.daoentities.*;
+import main.java.entities.Circumstance;
+import main.java.entities.Elective;
+import main.java.entities.Equipment;
+import main.java.entities.GenericEntity;
+import main.java.entities.Student;
+import main.java.entities.Subject;
+import main.java.entities.Teacher;
+import main.java.mvc.dao.daoentities.DaoCircumstance;
+import main.java.mvc.dao.daoentities.DaoElective;
+import main.java.mvc.dao.daoentities.DaoEquipment;
+import main.java.mvc.dao.daoentities.DaoGenericEntity;
+import main.java.mvc.dao.daoentities.DaoStudent;
+import main.java.mvc.dao.daoentities.DaoSubject;
+import main.java.mvc.dao.daoentities.DaoTeacher;
 
 import java.util.HashMap;
 import java.util.Map;

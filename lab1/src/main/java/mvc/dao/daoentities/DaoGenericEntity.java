@@ -9,12 +9,12 @@ public class DaoGenericEntity extends GenericDao<String, GenericEntity> {
   public DaoGenericEntity() {
     super();
   }
-
+  
   @Override
   public GenericEntity create(String key) {
     return new GenericEntity();
   }
-
+  
   @Override
   public GenericEntity read(String key) {
     Map<Serializable, GenericEntity> identifiedObjects = readMapFromXML();

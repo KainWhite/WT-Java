@@ -12,9 +12,10 @@ class Model {
     view = new View();
     daoFactory = new DaoFactory();
   }
-
-  Model(){}
-
+  
+  Model() {
+  }
+  
   void create(Class Tmp, String objId) {
     DaoInterface daoTmp = daoFactory.getDao(Tmp);
     GenericEntity obj = daoTmp.create(objId);
@@ -25,29 +26,28 @@ class Model {
       System.out.println("Create succeeded");
     }
   }
-
+  
   void read(String objId) {
     Class genericEntityClass;
     try {
-      genericEntityClass = Class.forName("main.java.entities.".concat("GenericEntity"));
+      genericEntityClass = Class.forName("main.java.entities."
+                                             .concat("GenericEntity"));
     } catch (ClassNotFoundException ex) {
       System.out.printf("Unknown class %s\n", "GenericEntity");
       return;
     }
     DaoInterface daoGenericEntity = daoFactory.getDao(genericEntityClass);
     GenericEntity obj = daoGenericEntity.read(objId);
-    if(obj == null) {
+    if (obj == null) {
       System.out.println("No such object");
     } else {
       view.displayObject(obj);
     }
   }
-
+  
   void update(String objId) {
-    
   }
-
+  
   void delete(String objId) {
-    
   }
 }

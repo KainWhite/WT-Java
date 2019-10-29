@@ -10,20 +10,20 @@ public class DaoEquipment extends GenericDao<String, Equipment> {
   public DaoEquipment() {
     super();
   }
-
+  
   @Override
   public Equipment create(String key) {
     Equipment obj = new Equipment();
     obj.setId(key);
     return generalCreate(obj);
   }
-
+  
   @Override
   public Equipment read(String key) {
     Map<Serializable, GenericEntity> identifiedObjects = readMapFromXML();
     if (identifiedObjects == null) {
       return null;
     }
-    return (Equipment)identifiedObjects.get(key);
+    return (Equipment) identifiedObjects.get(key);
   }
 }

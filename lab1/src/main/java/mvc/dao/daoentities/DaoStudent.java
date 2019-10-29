@@ -10,20 +10,20 @@ public class DaoStudent extends GenericDao<String, Student> {
   public DaoStudent() {
     super();
   }
-
+  
   @Override
   public Student create(String key) {
     Student obj = new Student();
     obj.setId(key);
     return generalCreate(obj);
   }
-
+  
   @Override
   public Student read(String key) {
     Map<Serializable, GenericEntity> identifiedObjects = readMapFromXML();
     if (identifiedObjects == null) {
       return null;
     }
-    return (Student)identifiedObjects.get(key);
+    return (Student) identifiedObjects.get(key);
   }
 }

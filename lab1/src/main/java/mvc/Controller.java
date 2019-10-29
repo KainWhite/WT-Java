@@ -2,28 +2,29 @@ package main.java.mvc;
 
 public class Controller {
   private Model model;
-
+  
   {
     model = new Model();
   }
-
-  public Controller(){}
-
+  
+  public Controller() {
+  }
+  
   public boolean processCommand(String command, String[] arguments) {
     switch (command) {
       case "create":
       case "c":
-        if(arguments.length < 2) {
-          System.out.println(
-              "Not enough arguments."
-              + "Should be \"create className objId [constructorParameters]\"");
+        if (arguments.length < 2) {
+          System.out.println("Not enough arguments."
+                             + "Should be \"create className objId " 
+                             + "[constructorParameters]\"");
           return true;
         }
         create(arguments[0], arguments[1]);
         return true;
       case "read":
       case "r":
-        if(arguments.length < 1) {
+        if (arguments.length < 1) {
           System.out.println("Not enough arguments. Should be \"read objId\"");
           return true;
         }
@@ -31,16 +32,18 @@ public class Controller {
         return true;
       case "update":
       case "u":
-        if(arguments.length < 1) {
-          System.out.println("Not enough arguments. Should be \"update objId\"");
+        if (arguments.length < 1) {
+          System.out
+              .println("Not enough arguments. Should be \"update objId\"");
           return true;
         }
         update(arguments[0]);
         return true;
       case "delete":
       case "d":
-        if(arguments.length < 1) {
-          System.out.println("Not enough arguments. Should be \"delete objId\"");
+        if (arguments.length < 1) {
+          System.out
+              .println("Not enough arguments. Should be \"delete objId\"");
           return true;
         }
         delete(arguments[0]);
@@ -53,11 +56,10 @@ public class Controller {
         System.out.printf("Unknown command %s", command);
         return true;
     }
-
   }
-
-  private void create (String className, String objId) {
-    if(className.equals("GenericEntity")) {
+  
+  private void create(String className, String objId) {
+    if (className.equals("GenericEntity")) {
       System.out.printf("Unknown class %s\n", className);
       return;
     }
@@ -70,16 +72,14 @@ public class Controller {
     }
     model.create(Tmp, objId);
   }
-
+  
   private void read(String objId) {
     model.read(objId);
   }
-
+  
   private void update(String objId) {
-    
   }
-
+  
   private void delete(String objId) {
-
   }
 }

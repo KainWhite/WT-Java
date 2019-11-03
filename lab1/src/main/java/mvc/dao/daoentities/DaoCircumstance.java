@@ -1,10 +1,6 @@
 package main.java.mvc.dao.daoentities;
 
 import main.java.entities.Circumstance;
-import main.java.entities.GenericEntity;
-
-import java.io.Serializable;
-import java.util.Map;
 
 public class DaoCircumstance extends GenericDao<String, Circumstance> {
   public DaoCircumstance() {
@@ -20,10 +16,6 @@ public class DaoCircumstance extends GenericDao<String, Circumstance> {
   
   @Override
   public Circumstance read(String key) {
-    Map<Serializable, GenericEntity> identifiedObjects = readMapFromXML();
-    if (identifiedObjects == null) {
-      return null;
-    }
-    return (Circumstance) identifiedObjects.get(key);
+    return (Circumstance) databaseMap.get(key);
   }
 }

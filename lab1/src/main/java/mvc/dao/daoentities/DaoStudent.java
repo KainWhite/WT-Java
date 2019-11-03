@@ -1,10 +1,6 @@
 package main.java.mvc.dao.daoentities;
 
-import main.java.entities.GenericEntity;
 import main.java.entities.Student;
-
-import java.io.Serializable;
-import java.util.Map;
 
 public class DaoStudent extends GenericDao<String, Student> {
   public DaoStudent() {
@@ -20,10 +16,6 @@ public class DaoStudent extends GenericDao<String, Student> {
   
   @Override
   public Student read(String key) {
-    Map<Serializable, GenericEntity> identifiedObjects = readMapFromXML();
-    if (identifiedObjects == null) {
-      return null;
-    }
-    return (Student) identifiedObjects.get(key);
+    return (Student) databaseMap.get(key);
   }
 }

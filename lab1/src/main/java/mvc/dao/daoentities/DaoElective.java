@@ -1,10 +1,6 @@
 package main.java.mvc.dao.daoentities;
 
 import main.java.entities.Elective;
-import main.java.entities.GenericEntity;
-
-import java.io.Serializable;
-import java.util.Map;
 
 public class DaoElective extends GenericDao<String, Elective> {
   public DaoElective() {
@@ -20,10 +16,6 @@ public class DaoElective extends GenericDao<String, Elective> {
   
   @Override
   public Elective read(String key) {
-    Map<Serializable, GenericEntity> identifiedObjects = readMapFromXML();
-    if (identifiedObjects == null) {
-      return null;
-    }
-    return (Elective) identifiedObjects.get(key);
+    return (Elective) databaseMap.get(key);
   }
 }

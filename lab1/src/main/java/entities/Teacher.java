@@ -1,14 +1,16 @@
 package main.java.entities;
 
+import main.java.xmlentitylists.XmlSubjectList;
+
 import java.util.ArrayList;
 
 public class Teacher extends GenericEntity<String, Teacher> {
   private String name;
-  private ArrayList<Subject> subjects;
+  private XmlSubjectList subjects;
   
   {
     name = null;
-    subjects = new ArrayList<>();
+    subjects = new XmlSubjectList();
   }
   
   public Teacher() {
@@ -24,7 +26,7 @@ public class Teacher extends GenericEntity<String, Teacher> {
     }
     if (subjects != null && subjects.size() != 0) {
       str.append(" subjects:\n");
-      for (Subject subject : subjects) {
+      for (Subject subject : subjects.getEntities()) {
         if (subject != null) {
           str.append(subject.toString(1));
         }
@@ -43,7 +45,7 @@ public class Teacher extends GenericEntity<String, Teacher> {
     }
     if (subjects != null && subjects.size() != 0) {
       str.append(" subjects:\n");
-      for (Subject subject : subjects) {
+      for (Subject subject : subjects.getEntities()) {
         if (subject != null) {
           str.append(spaces).append(subject.toString(identSpacesCount + 1));
         }
@@ -60,11 +62,11 @@ public class Teacher extends GenericEntity<String, Teacher> {
     this.name = name;
   }
   
-  public ArrayList<Subject> getSubjects() {
+  public XmlSubjectList getSubjects() {
     return subjects;
   }
   
-  public void setSubjects(ArrayList<Subject> subjects) {
+  public void setSubjects(XmlSubjectList subjects) {
     this.subjects = subjects;
   }
 }

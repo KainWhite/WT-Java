@@ -1,21 +1,23 @@
 package main.java.entities;
 
-import java.util.ArrayList;
+import main.java.xmlentitylists.XmlCircumstanceList;
+import main.java.xmlentitylists.XmlEquipmentList;
+import main.java.xmlentitylists.XmlStudentList;
 
 public class Elective extends GenericEntity<String, Elective> {
   private Subject subject;
-  private ArrayList<Circumstance> circumstances;
-  private ArrayList<Equipment> equipment;
+  private XmlCircumstanceList circumstances;
+  private XmlEquipmentList equipment;
   private Teacher teacher;
-  private ArrayList<Student> students;
+  private XmlStudentList students;
   
   {
     id = null;
     subject = null;
-    circumstances = new ArrayList<>();
-    equipment = new ArrayList<>();
+    circumstances = new XmlCircumstanceList();
+    equipment = new XmlEquipmentList();
     teacher = null;
-    students = new ArrayList<>();
+    students = new XmlStudentList();
   }
   
   public Elective() {
@@ -32,7 +34,7 @@ public class Elective extends GenericEntity<String, Elective> {
     }
     if (circumstances != null && circumstances.size() != 0) {
       str.append(" circumstances:\n");
-      for (Circumstance circumstance : circumstances) {
+      for (Circumstance circumstance : circumstances.getEntities()) {
         if (circumstance != null) {
           str.append(circumstance.toString(1));
         }
@@ -40,7 +42,7 @@ public class Elective extends GenericEntity<String, Elective> {
     }
     if (equipment != null && equipment.size() != 0) {
       str.append(" equipment:\n");
-      for (Equipment equipmentUnit : equipment) {
+      for (Equipment equipmentUnit : equipment.getEntities()) {
         if (equipmentUnit != null) {
           str.append(equipmentUnit.toString(1));
         }
@@ -52,7 +54,7 @@ public class Elective extends GenericEntity<String, Elective> {
     }
     if (students != null && students.size() != 0) {
       str.append(" students:\n");
-      for (Student student : students) {
+      for (Student student : students.getEntities()) {
         if (student != null) {
           str.append(student.toString(1));
         }
@@ -73,7 +75,7 @@ public class Elective extends GenericEntity<String, Elective> {
     }
     if (circumstances != null && circumstances.size() != 0) {
       str.append(spaces).append(" circumstances:\n");
-      for (Circumstance circumstance : circumstances) {
+      for (Circumstance circumstance : circumstances.getEntities()) {
         if (circumstance != null) {
           str.append(circumstance.toString(identSpacesCount + 1));
         }
@@ -81,7 +83,7 @@ public class Elective extends GenericEntity<String, Elective> {
     }
     if (equipment != null && equipment.size() != 0) {
       str.append(spaces).append(" equipment:\n");
-      for (Equipment equipmentUnit : equipment) {
+      for (Equipment equipmentUnit : equipment.getEntities()) {
         if (equipmentUnit != null) {
           str.append(equipmentUnit.toString(identSpacesCount + 1));
         }
@@ -93,7 +95,7 @@ public class Elective extends GenericEntity<String, Elective> {
     }
     if (students != null && students.size() != 0) {
       str.append(spaces).append(" students:\n");
-      for (Student student : students) {
+      for (Student student : students.getEntities()) {
         if (student != null) {
           str.append(student.toString(identSpacesCount + 1));
         }
@@ -110,19 +112,19 @@ public class Elective extends GenericEntity<String, Elective> {
     this.subject = subject;
   }
   
-  public ArrayList<Circumstance> getCircumstances() {
+  public XmlCircumstanceList getCircumstances() {
     return circumstances;
   }
   
-  public void setCircumstances(ArrayList<Circumstance> circumstances) {
+  public void setCircumstances(XmlCircumstanceList circumstances) {
     this.circumstances = circumstances;
   }
   
-  public ArrayList<Equipment> getEquipment() {
+  public XmlEquipmentList getEquipment() {
     return equipment;
   }
   
-  public void setEquipment(ArrayList<Equipment> equipment) {
+  public void setEquipment(XmlEquipmentList equipment) {
     this.equipment = equipment;
   }
   
@@ -134,11 +136,11 @@ public class Elective extends GenericEntity<String, Elective> {
     this.teacher = teacher;
   }
   
-  public ArrayList<Student> getStudents() {
+  public XmlStudentList getStudents() {
     return students;
   }
   
-  public void setStudents(ArrayList<Student> students) {
+  public void setStudents(XmlStudentList students) {
     this.students = students;
   }
 }

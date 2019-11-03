@@ -7,6 +7,7 @@ public class Controller {
     model = new Model();
   }
   
+  // TODO: 03.11.2019 create db listener 
   public Controller() {
   }
   
@@ -16,7 +17,7 @@ public class Controller {
       case "c":
         if (arguments.length < 2) {
           System.out.println("Not enough arguments."
-                             + "Should be \"create className objId " 
+                             + "Should be \"create className objId "
                              + "[constructorParameters]\"");
           return true;
         }

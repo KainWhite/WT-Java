@@ -1,0 +1,10 @@
+<Electives>
+    <Elective>
+        <id>c</id>
+        <subject/>
+        <circumstances/>
+        <equipment/>
+        <teacher/>
+        <students/>
+    </Elective>
+</Electives>

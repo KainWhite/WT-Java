@@ -1,5 +1,8 @@
 package main.java.entities;
 
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
+
+@JacksonXmlRootElement(localName = "LOL")
 public class Student extends GenericEntity<String, Student> {
   private String name;
   private int form;

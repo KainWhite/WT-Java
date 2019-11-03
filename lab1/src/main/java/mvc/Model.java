@@ -14,6 +14,7 @@ class Model {
   }
   
   Model() {
+    
   }
   
   void create(Class Tmp, String objId) {
@@ -30,8 +31,7 @@ class Model {
   void read(String objId) {
     Class genericEntityClass;
     try {
-      genericEntityClass = Class.forName("main.java.entities."
-                                             .concat("GenericEntity"));
+      genericEntityClass = Class.forName("main.java.entities.GenericEntity");
     } catch (ClassNotFoundException ex) {
       System.out.printf("Unknown class %s\n", "GenericEntity");
       return;

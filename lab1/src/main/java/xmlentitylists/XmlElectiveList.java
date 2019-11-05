@@ -12,4 +12,9 @@ public class XmlElectiveList extends XmlGenericEntityList<Elective> {
   @JacksonXmlElementWrapper(useWrapping = false)
   @JacksonXmlProperty(localName = "Elective")
   private List<Elective> entities;
+  
+  @Override
+  public Class acquireListType() {
+    return Elective.class;
+  }
 }

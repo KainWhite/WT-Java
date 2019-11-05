@@ -13,4 +13,9 @@ public class XmlCircumstanceList
   @JacksonXmlElementWrapper(useWrapping = false)
   @JacksonXmlProperty(localName = "Circumstance")
   private List<Circumstance> entities;
+  
+  @Override
+  public Class acquireListType() {
+    return Circumstance.class;
+  }
 }

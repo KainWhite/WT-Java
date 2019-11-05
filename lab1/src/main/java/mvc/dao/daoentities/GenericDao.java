@@ -64,10 +64,11 @@ public abstract class GenericDao<K extends Serializable,
 //      }
 //    });
     // TODO: 03.11.2019 REPLACE THESE LOTS OF SHIT WITH SOMETHING LIKE ABOVE
+    // TODO: 05.11.2019 when reading database make sure,
+    //  that (entity1 -> entity2) and entity2 are the same object 
     databaseMap.clear();
     
-    XmlGenericEntityList<Circumstance>
-        circumstances = new XmlGenericEntityList<>();
+    XmlCircumstanceList circumstances = new XmlCircumstanceList();
     try {
       circumstances = mapper.readValue(
           new File(databasePaths.get(Circumstance.class)),
@@ -82,7 +83,7 @@ public abstract class GenericDao<K extends Serializable,
       databaseMap.put(item.getId(), item);
     });
     
-    XmlGenericEntityList<Elective> electives = new XmlGenericEntityList<>();
+    XmlElectiveList electives = new XmlElectiveList();
     try {
       electives = mapper.readValue(
           new File(databasePaths.get(Elective.class)),
@@ -97,7 +98,7 @@ public abstract class GenericDao<K extends Serializable,
       databaseMap.put(item.getId(), item);
     });
     
-    XmlGenericEntityList<Equipment> equipment = new XmlGenericEntityList<>();
+    XmlEquipmentList equipment = new XmlEquipmentList();
     try {
       equipment = mapper.readValue(
           new File(databasePaths.get(Equipment.class)),
@@ -112,7 +113,7 @@ public abstract class GenericDao<K extends Serializable,
       databaseMap.put(item.getId(), item);
     });
     
-    XmlGenericEntityList<Student> students = new XmlGenericEntityList<>();
+    XmlStudentList students = new XmlStudentList();
     try {
       students = mapper.readValue(
           new File(databasePaths.get(Student.class)),
@@ -127,7 +128,7 @@ public abstract class GenericDao<K extends Serializable,
       databaseMap.put(item.getId(), item);
     });
     
-    XmlGenericEntityList<Subject> subjects = new XmlGenericEntityList<>();
+    XmlSubjectList subjects = new XmlSubjectList();
     try {
       subjects = mapper.readValue(
           new File(databasePaths.get(Subject.class)),
@@ -142,7 +143,7 @@ public abstract class GenericDao<K extends Serializable,
       databaseMap.put(item.getId(), item);
     });
     
-    XmlGenericEntityList<Teacher> teachers = new XmlGenericEntityList<>();
+    XmlTeacherList teachers = new XmlTeacherList();
     try {
       teachers = mapper.readValue(
           new File(databasePaths.get(Teacher.class)),
@@ -233,10 +234,13 @@ public abstract class GenericDao<K extends Serializable,
     return obj;
   }
   
+  // TODO: 04.11.2019 throw exception if no object found(read, update, delete)
   // read implemented in inheritors
   
   @Override
   public void update(T obj) {
+    databaseMap.put(obj.getId(), obj);
+    updateGlobalDatabase();
   }
   
   @Override

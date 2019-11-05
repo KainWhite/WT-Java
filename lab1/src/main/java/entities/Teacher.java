@@ -1,11 +1,11 @@
 package main.java.entities;
 
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import main.java.xmlentitylists.XmlSubjectList;
-
-import java.util.ArrayList;
 
 public class Teacher extends GenericEntity<String, Teacher> {
   private String name;
+  @JacksonXmlProperty(localName = "Subjects")
   private XmlSubjectList subjects;
   
   {
@@ -28,7 +28,7 @@ public class Teacher extends GenericEntity<String, Teacher> {
       str.append(" subjects:\n");
       for (Subject subject : subjects.getEntities()) {
         if (subject != null) {
-          str.append(subject.toString(1));
+          str.append(subject.toString(2));
         }
       }
     }
@@ -44,10 +44,10 @@ public class Teacher extends GenericEntity<String, Teacher> {
       str.append(spaces).append(" name: ").append(name).append("\n");
     }
     if (subjects != null && subjects.size() != 0) {
-      str.append(" subjects:\n");
+      str.append(spaces).append(" subjects:\n");
       for (Subject subject : subjects.getEntities()) {
         if (subject != null) {
-          str.append(spaces).append(subject.toString(identSpacesCount + 1));
+          str.append(subject.toString(identSpacesCount + 2));
         }
       }
     }

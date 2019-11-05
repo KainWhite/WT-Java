@@ -1,0 +1,12 @@
+<Teachers>
+  <Teacher>
+    <id>t</id>
+    <name/>
+    <Subjects>
+      <Subject>
+        <id>math</id>
+        <name/>
+      </Subject>
+    </Subjects>
+  </Teacher>
+</Teachers>

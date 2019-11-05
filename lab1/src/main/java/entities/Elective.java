@@ -1,14 +1,18 @@
 package main.java.entities;
 
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import main.java.xmlentitylists.XmlCircumstanceList;
 import main.java.xmlentitylists.XmlEquipmentList;
 import main.java.xmlentitylists.XmlStudentList;
 
 public class Elective extends GenericEntity<String, Elective> {
   private Subject subject;
+  @JacksonXmlProperty(localName = "Circumstances")
   private XmlCircumstanceList circumstances;
+  @JacksonXmlProperty(localName = "Equipment")
   private XmlEquipmentList equipment;
   private Teacher teacher;
+  @JacksonXmlProperty(localName = "Students")
   private XmlStudentList students;
   
   {
@@ -30,13 +34,13 @@ public class Elective extends GenericEntity<String, Elective> {
     str.append(super.toString());
     if (subject != null) {
       str.append(" subject:\n");
-      str.append(subject.toString(1));
+      str.append(subject.toString(2));
     }
     if (circumstances != null && circumstances.size() != 0) {
       str.append(" circumstances:\n");
       for (Circumstance circumstance : circumstances.getEntities()) {
         if (circumstance != null) {
-          str.append(circumstance.toString(1));
+          str.append(circumstance.toString(2));
         }
       }
     }
@@ -44,19 +48,19 @@ public class Elective extends GenericEntity<String, Elective> {
       str.append(" equipment:\n");
       for (Equipment equipmentUnit : equipment.getEntities()) {
         if (equipmentUnit != null) {
-          str.append(equipmentUnit.toString(1));
+          str.append(equipmentUnit.toString(2));
         }
       }
     }
     if (teacher != null) {
       str.append(" teacher:\n");
-      str.append(teacher.toString(1));
+      str.append(teacher.toString(2));
     }
     if (students != null && students.size() != 0) {
       str.append(" students:\n");
       for (Student student : students.getEntities()) {
         if (student != null) {
-          str.append(student.toString(1));
+          str.append(student.toString(2));
         }
       }
     }
@@ -71,13 +75,13 @@ public class Elective extends GenericEntity<String, Elective> {
     if (subject != null) {
       
       str.append(spaces).append(" subject:\n");
-      str.append(subject.toString(identSpacesCount + 1));
+      str.append(subject.toString(identSpacesCount + 2));
     }
     if (circumstances != null && circumstances.size() != 0) {
       str.append(spaces).append(" circumstances:\n");
       for (Circumstance circumstance : circumstances.getEntities()) {
         if (circumstance != null) {
-          str.append(circumstance.toString(identSpacesCount + 1));
+          str.append(circumstance.toString(identSpacesCount + 2));
         }
       }
     }
@@ -85,19 +89,19 @@ public class Elective extends GenericEntity<String, Elective> {
       str.append(spaces).append(" equipment:\n");
       for (Equipment equipmentUnit : equipment.getEntities()) {
         if (equipmentUnit != null) {
-          str.append(equipmentUnit.toString(identSpacesCount + 1));
+          str.append(equipmentUnit.toString(identSpacesCount + 2));
         }
       }
     }
     if (teacher != null) {
       str.append(spaces).append(" teacher:\n");
-      str.append(teacher.toString(identSpacesCount + 1));
+      str.append(teacher.toString(identSpacesCount + 2));
     }
     if (students != null && students.size() != 0) {
       str.append(spaces).append(" students:\n");
       for (Student student : students.getEntities()) {
         if (student != null) {
-          str.append(student.toString(identSpacesCount + 1));
+          str.append(student.toString(identSpacesCount + 2));
         }
       }
     }

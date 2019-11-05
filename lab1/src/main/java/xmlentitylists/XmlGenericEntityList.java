@@ -7,15 +7,14 @@ import java.util.Collection;
 import java.util.List;
 import java.util.function.Consumer;
 
-public class XmlGenericEntityList<T extends GenericEntity> {
+public abstract class XmlGenericEntityList<T extends GenericEntity> {
   private List<T> entities;
   
   {
     entities = new ArrayList<>();
   }
   
-  public XmlGenericEntityList() {
-  }
+  public XmlGenericEntityList() {}
   
   public XmlGenericEntityList(List<T> entities) {
     this.entities = entities;
@@ -26,21 +25,33 @@ public class XmlGenericEntityList<T extends GenericEntity> {
   }
   
   public void setEntities(List<T> entities) {
-    this.entities = entities;
+    if (entities == null) {
+      this.entities = new ArrayList<>();
+    } else {
+      this.entities = entities;
+    }
   }
   
+  public abstract Class acquireListType();
+  
   public boolean add(T entity) {
-    this.entities.add(entity);
-    return true;
+    return entities.add(entity);
   }
   
   public boolean addAll(Collection<? extends T> entities) {
-    this.entities.addAll(entities);
-    return true;
+    return this.entities.addAll(entities);
+  }
+  
+  public void clear() {
+    entities.clear();
   }
   
   public T get(int index) {
     return entities.get(index);
+  }
+  
+  public boolean remove(Object o) {
+    return entities.remove(o);
   }
   
   public int size() {

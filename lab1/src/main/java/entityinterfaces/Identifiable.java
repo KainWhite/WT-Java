@@ -1,4 +1,4 @@
-package main.java.interfaces;
+package main.java.entityinterfaces;
 
 import java.io.Serializable;
 

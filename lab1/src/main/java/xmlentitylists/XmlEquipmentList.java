@@ -10,6 +10,11 @@ import java.util.List;
 @JacksonXmlRootElement(localName = "Equipment")
 public class XmlEquipmentList extends XmlGenericEntityList<Equipment> {
   @JacksonXmlElementWrapper(useWrapping = false)
-  @JacksonXmlProperty(localName = "Equipment item")
+  @JacksonXmlProperty(localName = "EquipmentItem")
   private List<Equipment> entities;
+  
+  @Override
+  public Class acquireListType() {
+    return Equipment.class;
+  }
 }

@@ -1,6 +1,6 @@
 package main.java.entities;
 
-import main.java.interfaces.Identifiable;
+import main.java.entityinterfaces.Identifiable;
 
 import java.io.Serializable;
 

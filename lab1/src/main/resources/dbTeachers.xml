@@ -1,7 +1,16 @@
 <Teachers>
-    <Teacher>
-        <id>f</id>
+  <Teacher>
+    <id>t</id>
+    <name/>
+    <Subjects>
+      <Subject>
+        <id>math</id>
         <name/>
-        <subjects/>
-    </Teacher>
+      </Subject>
+      <Subject>
+        <id>chem</id>
+        <name/>
+      </Subject>
+    </Subjects>
+  </Teacher>
 </Teachers>

@@ -12,4 +12,9 @@ public class XmlStudentList extends XmlGenericEntityList<Student> {
   @JacksonXmlElementWrapper(useWrapping = false)
   @JacksonXmlProperty(localName = "Student")
   private List<Student> entities;
+  
+  @Override
+  public Class acquireListType() {
+    return Student.class;
+  }
 }

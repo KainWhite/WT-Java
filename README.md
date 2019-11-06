@@ -1,5 +1,5 @@
-#Elective App
-##Project structure:
+# Elective App
+## Project structure:
 ```
 src
   main
@@ -21,7 +21,7 @@ src
   | | Main.java - app entry point, gets all input and redirect it to Controller
   | resources - database xmls
 ```
-##Usage
+## Usage
 Just type any command:\
 `create\c EntityClassName entityId` - create object of 'EntityClassName' with `id` = 'entityId'\
 `read\r entityId` - read object with `id` = 'entityId'\

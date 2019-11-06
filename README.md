@@ -8,13 +8,13 @@ src
   | | entityinterfaces - interfaces for entities
   | | mvc - app logic
   | | | dao - data access object implementation
-  | | | | daoentities - classes for each entity, that implement all data-oriented logic(like db transactions, internal db updates, etc.)
+  | | | | daoentities - GenericDao and dao classes for each entity, that implement all data-oriented logic(like db transactions, internal db updates, etc.)
   | | | | DaoFactory.java - factory for DaoEntities
-  | | | | DaoFactoryInteface - interface for DaoFactory with DaoCreatorInterface(interface with DaoInterface create method) and DaoInterface getDao method
-  | | | | DaoInterface - interface for DaoEntities with crud methods
+  | | | | DaoFactoryInteface.java - interface for DaoFactory with DaoCreatorInterface(interface with DaoInterface create method) and DaoInterface getDao method
+  | | | | DaoInterface.java - interface for DaoEntities with crud methods
   | | | Controller.java - controller class, processes input and calls Model
   | | | EntityListOperationEnum.java - enum for different operations with entityListFields
-  | | | IntegerInputConditionInterface - interface with method, that requests integer input and checks it with given condition
+  | | | IntegerInputConditionInterface.java - interface with method, that requests integer input and checks it with given condition
   | | | Model.java - model class, implements app internal logic, calls DAO and View
   | | | View.java - view class, implements some printing operations
   | | xmlentitylists - classes to wrap entity lists for serialization

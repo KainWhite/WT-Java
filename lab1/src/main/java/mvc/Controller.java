@@ -94,10 +94,14 @@ public class Controller {
     }
     Class Tmp = null;
     try {
-      Tmp = Class.forName("main.java.entities.".concat(className));
-    } catch (ClassNotFoundException ex) {
-      System.out.printf("Unknown class %s\n", className);
-      return;
+      Tmp = Class.forName("main.java.entities.complex.".concat(className));
+    } catch (ClassNotFoundException e) {
+      try {
+        Tmp = Class.forName("main.java.entities.simple.".concat(className));
+      } catch (ClassNotFoundException ex) {
+        System.out.printf("Unknown class %s\n", className);
+        return;
+      }
     }
     model.create(Tmp, objId);
   }
@@ -174,6 +178,6 @@ public class Controller {
   }
   
   private void delete(String objId) {
-    
+    model.delete(objId);
   }
 }

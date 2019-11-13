@@ -25,8 +25,10 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public abstract class GenericDao<K extends Serializable,
     T extends GenericEntity>
@@ -34,6 +36,7 @@ public abstract class GenericDao<K extends Serializable,
   protected static Map<Serializable, GenericEntity> databaseMap;
   private static Map<Class, String> databasePaths;
   private static XmlMapper mapper;
+  private static Map<Serializable, Set<Serializable>> dependencyMap;
   
   static {
     databaseMap = new HashMap<>();
@@ -47,31 +50,60 @@ public abstract class GenericDao<K extends Serializable,
     databasePaths.put(Teacher.class, "src/main/resources/dbTeachers.xml");
     mapper = new XmlMapper();
     mapper.enable(SerializationFeature.INDENT_OUTPUT);
+    dependencyMap = new HashMap<>();
     updateLocalDatabase();
   }
   
-  private static void updateLocalDatabaseDependencies(XmlComplexEntityList xmlEntities) {
-    List<ComplexEntity> entities = xmlEntities.getEntities();
-    entities.forEach(entity -> {
-      List<List<GenericEntity>> internalEntityLists =
-          entity.getInternalEntityLists();
-      internalEntityLists.forEach(internalEntities -> {
-        for (int i = 0; i < internalEntities.size(); i++) {
+  private static void updateDependencyMap(Serializable mainObjId,
+                                          Serializable dependentObjId) {
+    if (!dependencyMap.containsKey(mainObjId)) {
+      dependencyMap.put(mainObjId, new HashSet<>());
+    }
+    dependencyMap.get(mainObjId).add(dependentObjId);
+  }
+  
+  private static void updateEntityDependencies(ComplexEntity entity,
+                                               boolean updateRefs) {
+    List<List<GenericEntity>> internalEntityLists =
+        entity.getInternalEntityLists();
+    internalEntityLists.forEach(internalEntities -> {
+      for (int i = 0; i < internalEntities.size(); i++) {
+        if (updateRefs) {
           internalEntities.set(
               i,
               databaseMap.get(internalEntities.get(i).getId()));
         }
-      });
-      System.out.println("///////////////////////////////////");
-      List<GenericEntity> internalEntities = entity.getInternalEntities();
-      for (int i = 0; i < internalEntities.size(); i++) {
+        if(internalEntities.get(i) != null) {
+          updateDependencyMap(internalEntities.get(i).getId(),
+                              entity.getId());
+        } else {
+          internalEntities.remove(i);
+          i--;
+        }
+      }
+    });
+    List<GenericEntity> internalEntities = entity.getInternalEntities();
+    for (int i = 0; i < internalEntities.size(); i++) {
+      if (updateRefs) {
         internalEntities.set(
             i,
             databaseMap.get(internalEntities.get(i).getId()));
       }
+      if(internalEntities.get(i) != null) {
+        updateDependencyMap(internalEntities.get(i).getId(),
+                            entity.getId());
+      }
+    }
+    if (updateRefs) {
       // cos i'm working with array of referenced objects
       entity.setInternalEntities(internalEntities);
-    });
+    }
+  }
+  
+  private static void updateXmlEntityListDependencies(
+      XmlComplexEntityList xmlEntities) {
+    List<ComplexEntity> entities = xmlEntities.getEntities();
+    entities.forEach(entity -> updateEntityDependencies(entity, true));
   }
   
   private static <T extends GenericEntity> void updateLocalDatabaseList(
@@ -82,7 +114,7 @@ public abstract class GenericDao<K extends Serializable,
           new File(databasePaths.get(cls)),
           entityList.getClass());
       if (entityList instanceof XmlComplexEntityList) {
-        updateLocalDatabaseDependencies((XmlComplexEntityList) entityList);
+        updateXmlEntityListDependencies((XmlComplexEntityList) entityList);
       }
       entityList.forEach((item) -> {
         databaseMap.put(item.getId(), item);
@@ -189,10 +221,20 @@ public abstract class GenericDao<K extends Serializable,
   @Override
   public void update(T obj) {
     databaseMap.put(obj.getId(), obj);
+    if (obj instanceof ComplexEntity) {
+      updateEntityDependencies((ComplexEntity) obj, false);
+    }
     updateGlobalDatabase();
   }
   
   @Override
   public void delete(T obj) {
+    databaseMap.remove(obj.getId());
+    dependencyMap.get(obj.getId()).forEach(dependentObjId -> {
+      updateEntityDependencies((ComplexEntity) databaseMap
+          .get(dependentObjId), true);
+    });
+    dependencyMap.remove(obj.getId());
+    updateGlobalDatabase();
   }
 }

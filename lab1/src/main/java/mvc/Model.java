@@ -244,5 +244,13 @@ class Model {
   }
   
   void delete(String objId) {
+    GenericEntity obj = getEntityById(objId);
+    
+    if (obj == null) {
+      System.out.println("Delete failed.");
+    } else {
+      recentDao.delete(obj);
+      System.out.println("Delete succeeded.");
+    }
   }
 }

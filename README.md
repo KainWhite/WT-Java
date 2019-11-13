@@ -1,5 +1,6 @@
 # Elective App
-## Project structure:
+## Project structure
+### ElectiveApp:
 ```
 src
   main

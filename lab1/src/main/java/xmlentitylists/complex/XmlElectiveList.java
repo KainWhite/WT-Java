@@ -1,0 +1,21 @@
+package main.java.xmlentitylists.complex;
+
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
+import main.java.entities.complex.Elective;
+import main.java.xmlentitylists.XmlComplexEntityList;
+
+import java.util.List;
+
+@JacksonXmlRootElement(localName = "Electives")
+public class XmlElectiveList extends XmlComplexEntityList<Elective> {
+  @JacksonXmlElementWrapper(useWrapping = false)
+  @JacksonXmlProperty(localName = "Elective")
+  private List<Elective> entities;
+  
+  @Override
+  public Class acquireListType() {
+    return Elective.class;
+  }
+}

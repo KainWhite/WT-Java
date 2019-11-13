@@ -1,0 +1,2 @@
+Controller::update - type checks: (int), (String), else (id of GenericEntity); if u have another types of class fields, check them here.
+Model::update - the same as Controller::update

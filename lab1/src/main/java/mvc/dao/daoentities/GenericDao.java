@@ -1,23 +1,24 @@
 package main.java.mvc.dao.daoentities;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
-import main.java.entities.Circumstance;
-import main.java.entities.Elective;
-import main.java.entities.Equipment;
+import main.java.entities.ComplexEntity;
 import main.java.entities.GenericEntity;
-import main.java.entities.Student;
-import main.java.entities.Subject;
-import main.java.entities.Teacher;
+import main.java.entities.complex.Elective;
+import main.java.entities.complex.Teacher;
+import main.java.entities.simple.Circumstance;
+import main.java.entities.simple.Equipment;
+import main.java.entities.simple.Student;
+import main.java.entities.simple.Subject;
 import main.java.mvc.dao.DaoInterface;
-import main.java.xmlentitylists.XmlCircumstanceList;
-import main.java.xmlentitylists.XmlElectiveList;
-import main.java.xmlentitylists.XmlEquipmentList;
+import main.java.xmlentitylists.XmlComplexEntityList;
 import main.java.xmlentitylists.XmlGenericEntityList;
-import main.java.xmlentitylists.XmlStudentList;
-import main.java.xmlentitylists.XmlSubjectList;
-import main.java.xmlentitylists.XmlTeacherList;
+import main.java.xmlentitylists.complex.XmlElectiveList;
+import main.java.xmlentitylists.complex.XmlTeacherList;
+import main.java.xmlentitylists.simple.XmlCircumstanceList;
+import main.java.xmlentitylists.simple.XmlEquipmentList;
+import main.java.xmlentitylists.simple.XmlStudentList;
+import main.java.xmlentitylists.simple.XmlSubjectList;
 
 import java.io.File;
 import java.io.IOException;
@@ -49,114 +50,62 @@ public abstract class GenericDao<K extends Serializable,
     updateLocalDatabase();
   }
   
+  private static void updateLocalDatabaseDependencies(XmlComplexEntityList xmlEntities) {
+    List<ComplexEntity> entities = xmlEntities.getEntities();
+    entities.forEach(entity -> {
+      List<List<GenericEntity>> internalEntityLists =
+          entity.getInternalEntityLists();
+      internalEntityLists.forEach(internalEntities -> {
+        for (int i = 0; i < internalEntities.size(); i++) {
+          internalEntities.set(
+              i,
+              databaseMap.get(internalEntities.get(i).getId()));
+        }
+      });
+      System.out.println("///////////////////////////////////");
+      List<GenericEntity> internalEntities = entity.getInternalEntities();
+      for (int i = 0; i < internalEntities.size(); i++) {
+        internalEntities.set(
+            i,
+            databaseMap.get(internalEntities.get(i).getId()));
+      }
+      // cos i'm working with array of referenced objects
+      entity.setInternalEntities(internalEntities);
+    });
+  }
+  
+  private static <T extends GenericEntity> void updateLocalDatabaseList(
+      XmlGenericEntityList<T> entityList,
+      Class<T> cls) {
+    try {
+      entityList = mapper.readValue(
+          new File(databasePaths.get(cls)),
+          entityList.getClass());
+      if (entityList instanceof XmlComplexEntityList) {
+        updateLocalDatabaseDependencies((XmlComplexEntityList) entityList);
+      }
+      entityList.forEach((item) -> {
+        databaseMap.put(item.getId(), item);
+      });
+    } catch (IOException ex) {
+      System.out.println(
+          "IO exception in mapper.readValue(" + cls.getSimpleName() + ") in "
+          + "GenericDao::updateLocalDatabaseList\n"
+          + ex.getMessage());
+    }
+  }
+  
   public static void updateLocalDatabase() {
-//    databasePaths.forEach((cls, path) -> {
-//      XmlMapper mapper = new XmlMapper();
-//      //cls.getClass();
-//      List<cls> l;
-//      try {
-//        mapper.readValue(new File(path),
-//                         new TypeReference<cls>() {});
-//      } catch (IOException ex) {
-//        System.out.println(
-//            "IO exception in mapper.readValue in 
-//            GenericDao::readMapFromXML\n" + ex.getMessage());
-//      }
-//    });
-    // TODO: 03.11.2019 REPLACE THESE LOTS OF SHIT WITH SOMETHING LIKE ABOVE
-    // TODO: 05.11.2019 when reading database make sure,
-    //  that (entity1 -> entity2) and entity2 are the same object 
     databaseMap.clear();
-    
-    XmlCircumstanceList circumstances = new XmlCircumstanceList();
-    try {
-      circumstances = mapper.readValue(
-          new File(databasePaths.get(Circumstance.class)),
-          new TypeReference<>() {});
-    } catch (IOException ex) {
-      System.out.println(
-          "IO exception in mapper.readValue(Circumstance) in "
-          + "GenericDao::updateLocalDatabase\n"
-          + ex.getMessage());
-    }
-    circumstances.forEach((item) -> {
-      databaseMap.put(item.getId(), item);
-    });
-    
-    XmlElectiveList electives = new XmlElectiveList();
-    try {
-      electives = mapper.readValue(
-          new File(databasePaths.get(Elective.class)),
-          new TypeReference<>() {});
-    } catch (IOException ex) {
-      System.out.println(
-          "IO exception in mapper.readValue(Elective) in "
-          + "GenericDao::updateLocalDatabase\n"
-          + ex.getMessage());
-    }
-    electives.forEach((item) -> {
-      databaseMap.put(item.getId(), item);
-    });
-    
-    XmlEquipmentList equipment = new XmlEquipmentList();
-    try {
-      equipment = mapper.readValue(
-          new File(databasePaths.get(Equipment.class)),
-          new TypeReference<>() {});
-    } catch (IOException ex) {
-      System.out.println(
-          "IO exception in mapper.readValue(Equipment) in "
-          + "GenericDao::updateLocalDatabase\n"
-          + ex.getMessage());
-    }
-    equipment.forEach((item) -> {
-      databaseMap.put(item.getId(), item);
-    });
-    
-    XmlStudentList students = new XmlStudentList();
-    try {
-      students = mapper.readValue(
-          new File(databasePaths.get(Student.class)),
-          new TypeReference<>() {});
-    } catch (IOException ex) {
-      System.out.println(
-          "IO exception in mapper.readValue(Student) in "
-          + "GenericDao::updateLocalDatabase\n"
-          + ex.getMessage());
-    }
-    students.forEach((item) -> {
-      databaseMap.put(item.getId(), item);
-    });
-    
-    XmlSubjectList subjects = new XmlSubjectList();
-    try {
-      subjects = mapper.readValue(
-          new File(databasePaths.get(Subject.class)),
-          new TypeReference<>() {});
-    } catch (IOException ex) {
-      System.out.println(
-          "IO exception in mapper.readValue(Subject) in "
-          + "GenericDao::updateLocalDatabase\n"
-          + ex.getMessage());
-    }
-    subjects.forEach((item) -> {
-      databaseMap.put(item.getId(), item);
-    });
-    
-    XmlTeacherList teachers = new XmlTeacherList();
-    try {
-      teachers = mapper.readValue(
-          new File(databasePaths.get(Teacher.class)),
-          new TypeReference<>() {});
-    } catch (IOException ex) {
-      System.out.println(
-          "IO exception in mapper.readValue(Teacher) in "
-          + "GenericDao::updateLocalDatabase\n"
-          + ex.getMessage());
-    }
-    teachers.forEach((item) -> {
-      databaseMap.put(item.getId(), item);
-    });
+    // simple classes
+    updateLocalDatabaseList(new XmlCircumstanceList(), Circumstance.class);
+    updateLocalDatabaseList(new XmlEquipmentList(), Equipment.class);
+    updateLocalDatabaseList(new XmlStudentList(), Student.class);
+    updateLocalDatabaseList(new XmlSubjectList(), Subject.class);
+    // complex classes(if class1 is field of class2, then u should update 
+    // class1 first)
+    updateLocalDatabaseList(new XmlTeacherList(), Teacher.class);
+    updateLocalDatabaseList(new XmlElectiveList(), Elective.class);
   }
   
   public static void updateGlobalDatabase() {

@@ -1,6 +1,10 @@
 <Subjects>
   <Subject>
-    <id>math</id>
+    <id>chem</id>
     <name/>
+  </Subject>
+  <Subject>
+    <id>math</id>
+    <name>Math</name>
   </Subject>
 </Subjects>

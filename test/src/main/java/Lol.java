@@ -5,36 +5,59 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import java.util.ArrayList;
 import java.util.List;
 
-abstract class Lol <T> {
+class Lol <T> {
   @JacksonXmlProperty(localName = "Lol.a")
-  public List<T> a;
-  
+  public int a;
   {
-    a = new ArrayList<>();
+    a = 1;
   }
-  
-  public List<T> getA() {
+  public int getA() {
     return a;
   }
   
-  public void setA(List<T> a) {
-    if(a == null) {
-      this.a = new ArrayList<>();
-    } else {
-      this.a = a;
-    }
+  public void setA(int a) {
+    this.a = a;
   }
 }
 
 class Kek extends Lol<Integer>{
-  @JacksonXmlProperty(localName = "Kek.a")
-  public List<Integer> a;
-  public List<Integer> ggetA() {
-    return a;
+//  @JacksonXmlProperty(localName = "Kek.a")
+//  public int a;
+  
+  {
+    a = 2;
+  }
+  
+  
+  
+  @Override
+  public String toString() {
+    return "Kek{" +
+           "a=" + a +
+           '}';
   }
 }
 
 class Lul extends Lol<Integer>{
-  @JacksonXmlProperty(localName = "Lul.a")
-  public List<Integer> a;
+  @JacksonXmlProperty(localName = "Lul.b")
+  private int b;
+  
+  {
+    b = 100;
+  }
+  
+  public int getB() {
+    return b;
+  }
+  
+  public void setB(int b) {
+    this.b = b;
+  }
+  
+  @Override
+  public String toString() {
+    return "Lul{" +
+           "b=" + b +
+           '}';
+  }
 }

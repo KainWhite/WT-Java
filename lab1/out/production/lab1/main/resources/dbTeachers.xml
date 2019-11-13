@@ -5,6 +5,10 @@
     <Subjects>
       <Subject>
         <id>math</id>
+        <name>Math</name>
+      </Subject>
+      <Subject>
+        <id>chem</id>
         <name/>
       </Subject>
     </Subjects>

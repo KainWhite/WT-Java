@@ -9,7 +9,7 @@ public class View {
   }
   
   public void displayObject(GenericEntity obj) {
-    System.out.print(obj.toString());
+    System.out.print(obj);
   }
   
   public void displayFields(Field[] fields) {

@@ -1,6 +1,6 @@
 package main.java.mvc.dao.daoentities;
 
-import main.java.entities.Subject;
+import main.java.entities.simple.Subject;
 
 public class DaoSubject extends GenericDao<String, Subject> {
   public DaoSubject() {

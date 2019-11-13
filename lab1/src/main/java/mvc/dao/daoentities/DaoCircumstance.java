@@ -1,6 +1,6 @@
 package main.java.mvc.dao.daoentities;
 
-import main.java.entities.Circumstance;
+import main.java.entities.simple.Circumstance;
 
 public class DaoCircumstance extends GenericDao<String, Circumstance> {
   public DaoCircumstance() {

@@ -1,6 +1,6 @@
 package main.java.mvc.dao.daoentities;
 
-import main.java.entities.Elective;
+import main.java.entities.complex.Elective;
 
 public class DaoElective extends GenericDao<String, Elective> {
   public DaoElective() {

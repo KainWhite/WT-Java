@@ -7,7 +7,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.function.Consumer;
 
-public abstract class XmlGenericEntityList<T extends GenericEntity> {
+public class XmlGenericEntityList<T extends GenericEntity> {
   private List<T> entities;
   
   {
@@ -32,7 +32,10 @@ public abstract class XmlGenericEntityList<T extends GenericEntity> {
     }
   }
   
-  public abstract Class acquireListType();
+  // TODO: 13.11.2019 rename it to getListType
+  public Class acquireListType() {
+    return GenericEntity.class;
+  }
   
   public boolean add(T entity) {
     return entities.add(entity);

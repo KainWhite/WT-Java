@@ -5,18 +5,15 @@ src
   main
   | java - source java files
   | | entities - classes for entities
-  | | entityinterfaces - interfaces for entities
   | | mvc - app logic
+  | | | controller - controller class with some useful stuff for it
   | | | dao - data access object implementation
   | | | | daoentities - GenericDao and dao classes for each entity, that implement all data-oriented logic(like db transactions, internal db updates, etc.)
   | | | | DaoFactory.java - factory for DaoEntities
   | | | | DaoFactoryInteface.java - interface for DaoFactory with DaoCreatorInterface(interface with DaoInterface create method) and DaoInterface getDao method
-  | | | | DaoInterface.java - interface for DaoEntities with crud methods
-  | | | Controller.java - controller class, processes input and calls Model
+  | | | model - model class, implements app internal logic, calls DAO
+  | | | view - view class, implements some printing operations
   | | | EntityListOperationEnum.java - enum for different operations with entityListFields
-  | | | IntegerInputConditionInterface.java - interface with method, that requests integer input and checks it with given condition
-  | | | Model.java - model class, implements app internal logic, calls DAO and View
-  | | | View.java - view class, implements some printing operations
   | | xmlentitylists - classes to wrap entity lists for serialization
   | | Main.java - app entry point, gets all input and redirect it to Controller
   | resources - database xmls

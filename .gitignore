@@ -1,2 +1,4 @@
 /WT.txt
-.idea/
+**/.idea/
+**/out/production/
+**/*.iml

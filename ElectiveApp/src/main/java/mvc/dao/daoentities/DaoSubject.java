@@ -7,15 +7,16 @@ public class DaoSubject extends GenericDao<String, Subject> {
     super();
   }
   
+  /**
+   * Creates Subject object with id = key and passes it to generalCreate
+   *
+   * @param key object id
+   * @return generalCreate(createdObject)
+   */
   @Override
   public Subject create(String key) {
     Subject obj = new Subject();
     obj.setId(key);
     return generalCreate(obj);
-  }
-  
-  @Override
-  public Subject read(String key) {
-    return (Subject) databaseMap.get(key);
   }
 }

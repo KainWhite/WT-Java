@@ -23,6 +23,7 @@ public class Equipment extends GenericEntity<String, Equipment> {
     return str.toString();
   }
   
+  @Override
   public String toString(int identSpacesCount) {
     StringBuilder str = new StringBuilder();
     String spaces = getSpaceString(identSpacesCount);

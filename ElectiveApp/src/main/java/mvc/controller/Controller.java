@@ -8,6 +8,9 @@ import main.java.xmlentitylists.XmlGenericEntityList;
 import java.lang.reflect.Field;
 import java.util.Scanner;
 
+/**
+ * Class for input processing
+ */
 public class Controller {
   private Model model;
   
@@ -19,6 +22,16 @@ public class Controller {
   public Controller() {
   }
   
+  /**
+   * Input check function for integers
+   *
+   * @param condition        function with one integer parameter, that can
+   *                         specify additional checks like allowable range
+   * @param messageAsk       string output with message asking for input
+   * @param messageIncorrect string output with message telling, that input
+   *                         was incorrect
+   * @return valid input integer
+   */
   private int requestIntegerInput(IntegerInputConditionInterface condition,
                                   String messageAsk,
                                   String messageIncorrect) {
@@ -41,14 +54,21 @@ public class Controller {
     return requestedInteger;
   }
   
+  /**
+   * Parses input command and calls appropriate Controller methods
+   *
+   * @param command   command string
+   * @param arguments anything after command string
+   * @return false, if user asked to quit program, true otherwise
+   */
   public boolean processCommand(String command, String[] arguments) {
     switch (command) {
       case "create":
       case "c":
         if (arguments.length < 2) {
-          System.out.println("Not enough arguments."
-                             + "Should be \"create className objId "
-                             + "[constructorParameters]\"");
+          System.out.println(
+              "Not enough arguments." + "Should be \"create className objId "
+              + "[constructorParameters]\"");
           return true;
         }
         create(arguments[0], arguments[1]);
@@ -89,6 +109,12 @@ public class Controller {
     }
   }
   
+  /**
+   * Creates object of className with id = objId
+   *
+   * @param className one of class names in entities folder
+   * @param objId     object id to set
+   */
   private void create(String className, String objId) {
     if (className.equals("GenericEntity")) {
       System.out.printf("Unknown class %s\n", className);
@@ -108,10 +134,21 @@ public class Controller {
     model.create(Tmp, objId);
   }
   
+  /**
+   * Prints object with id = objId
+   *
+   * @param objId id of object to print
+   */
   private void read(String objId) {
+    // TODO: 14.11.2019 add read by class name 
     model.read(objId);
   }
   
+  /**
+   * Updates object with id = objId
+   *
+   * @param objId id of object to update
+   */
   private void update(String objId) {
     // TODO: 04.11.2019 add exit option in any state 
     int maxFieldNumber = model.getEntityFieldCount(objId);
@@ -119,10 +156,11 @@ public class Controller {
       return;
     }
     Scanner in = new Scanner(System.in);
-    int fieldNumber = requestIntegerInput(
-        (x) -> (x >= 0) && (x <= maxFieldNumber),
-        "Type field number(1 - " + maxFieldNumber + "); 0 - exit:",
-        "Incorrect value. Try again:");
+    int fieldNumber = requestIntegerInput((x) -> (x >= 0) && (x
+                                                              <= maxFieldNumber),
+                                          "Type field number(1 - "
+                                          + maxFieldNumber + "); 0 - exit:",
+                                          "Incorrect value. Try again:");
     if (fieldNumber == 0) {
       System.out.println("Update aborted.");
       return;
@@ -179,6 +217,11 @@ public class Controller {
     }
   }
   
+  /**
+   * Deletes object with id = objId
+   *
+   * @param objId id of object to delete
+   */
   private void delete(String objId) {
     model.delete(objId);
   }

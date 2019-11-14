@@ -1,0 +1,13 @@
+main.java
+main.java.entities
+main.java.entities.complex
+main.java.entities.simple
+main.java.mvc
+main.java.mvc.controller
+main.java.mvc.dao
+main.java.mvc.dao.daoentities
+main.java.mvc.model
+main.java.mvc.view
+main.java.xmlentitylists
+main.java.xmlentitylists.complex
+main.java.xmlentitylists.simple

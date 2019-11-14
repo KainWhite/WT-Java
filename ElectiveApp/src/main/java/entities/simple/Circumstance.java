@@ -6,6 +6,7 @@ import java.util.Date;
 
 public class Circumstance extends GenericEntity<String, Circumstance> {
   private int roomNumber;
+  // TODO: 14.11.2019 deal with Date in circumstance 
   private Date time;
   
   {
@@ -30,6 +31,7 @@ public class Circumstance extends GenericEntity<String, Circumstance> {
     return str.toString();
   }
   
+  @Override
   public String toString(int identSpacesCount) {
     StringBuilder str = new StringBuilder();
     String spaces = getSpaceString(identSpacesCount);

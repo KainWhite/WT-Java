@@ -7,13 +7,13 @@ public class DaoGenericEntity extends GenericDao<String, GenericEntity> {
     super();
   }
   
+  /**
+   * Creates GenericEntity object
+   *
+   * @return created object
+   */
   @Override
   public GenericEntity create(String key) {
     return new GenericEntity();
-  }
-  
-  @Override
-  public GenericEntity read(String key) {
-    return databaseMap.get(key);
   }
 }

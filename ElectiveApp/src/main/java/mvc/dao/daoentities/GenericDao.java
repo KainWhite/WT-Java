@@ -29,6 +29,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * Parent class for Dao classes
+ *
+ * @param <K> id type
+ * @param <T> entity class
+ */
 public abstract class GenericDao<K extends Serializable,
     T extends GenericEntity>
     implements DaoInterface<K, T> {
@@ -53,6 +59,14 @@ public abstract class GenericDao<K extends Serializable,
     updateLocalDatabase();
   }
   
+  /**
+   * Adds dependentObjId to dependencies of mainObjId
+   *
+   * @param mainObjId      id of object, that is in an object with id =
+   *                       dependentObjId
+   * @param dependentObjId id of object, that contains object with id =
+   *                       mainObjId
+   */
   private static void updateDependencyMap(Serializable mainObjId,
                                           Serializable dependentObjId) {
     if (!dependencyMap.containsKey(mainObjId)) {
@@ -61,6 +75,14 @@ public abstract class GenericDao<K extends Serializable,
     dependencyMap.get(mainObjId).add(dependentObjId);
   }
   
+  /**
+   * Updates dependencies for entity and, if updateRefs flag is set, sets
+   * any object inside entity to object from database
+   *
+   * @param entity     ComplexEntity needed to be updated
+   * @param updateRefs true if it is needed to update references to objects
+   *                   inside entity
+   */
   private static void updateEntityDependencies(ComplexEntity entity,
                                                boolean updateRefs) {
     List<List<GenericEntity>> internalEntityLists =
@@ -68,13 +90,12 @@ public abstract class GenericDao<K extends Serializable,
     internalEntityLists.forEach(internalEntities -> {
       for (int i = 0; i < internalEntities.size(); i++) {
         if (updateRefs) {
-          internalEntities.set(
-              i,
-              databaseMap.get(internalEntities.get(i).getId()));
+          internalEntities.set(i,
+                               databaseMap
+                                   .get(internalEntities.get(i).getId()));
         }
         if (internalEntities.get(i) != null) {
-          updateDependencyMap(internalEntities.get(i).getId(),
-                              entity.getId());
+          updateDependencyMap(internalEntities.get(i).getId(), entity.getId());
         } else {
           internalEntities.remove(i);
           i--;
@@ -84,13 +105,11 @@ public abstract class GenericDao<K extends Serializable,
     List<GenericEntity> internalEntities = entity.getInternalEntities();
     for (int i = 0; i < internalEntities.size(); i++) {
       if (updateRefs) {
-        internalEntities.set(
-            i,
-            databaseMap.get(internalEntities.get(i).getId()));
+        internalEntities.set(i,
+                             databaseMap.get(internalEntities.get(i).getId()));
       }
       if (internalEntities.get(i) != null) {
-        updateDependencyMap(internalEntities.get(i).getId(),
-                            entity.getId());
+        updateDependencyMap(internalEntities.get(i).getId(), entity.getId());
       }
     }
     if (updateRefs) {
@@ -99,19 +118,33 @@ public abstract class GenericDao<K extends Serializable,
     }
   }
   
-  private static void updateXmlEntityListDependencies(
-      XmlComplexEntityList xmlEntities) {
+  /**
+   * Calls updateEntityDependencies for each entity inside xmlEntities
+   *
+   * @param xmlEntities XmlComplexEntityList that needs to update its
+   *                    entities dependencies
+   */
+  private static void updateXmlEntityListDependencies(XmlComplexEntityList xmlEntities) {
     List<ComplexEntity> entities = xmlEntities.getEntities();
     entities.forEach(entity -> updateEntityDependencies(entity, true));
   }
   
+  /**
+   * Reads entities from xml file for Class cls and puts them in databaseMap;
+   * if entityList is XmlComplexEntityList it calls
+   * updateXmlEntityListDependencies for entityList
+   *
+   * @param entityList XmlGenericEntityList&lt;T&gt; to read xml into
+   * @param cls        Class&lt;T&gt; for which xml file is picked and with
+   *                   which it is read
+   * @param <T>        extends GenericEntity
+   */
   private static <T extends GenericEntity> void updateLocalDatabaseList(
       XmlGenericEntityList<T> entityList,
       Class<T> cls) {
     try {
-      entityList = mapper.readValue(
-          new File(databasePaths.get(cls)),
-          entityList.getClass());
+      entityList = mapper.readValue(new File(databasePaths.get(cls)),
+                                    entityList.getClass());
       if (entityList instanceof XmlComplexEntityList) {
         updateXmlEntityListDependencies((XmlComplexEntityList) entityList);
       }
@@ -121,11 +154,14 @@ public abstract class GenericDao<K extends Serializable,
     } catch (IOException ex) {
       System.out.println(
           "IO exception in mapper.readValue(" + cls.getSimpleName() + ") in "
-          + "GenericDao::updateLocalDatabaseList\n"
-          + ex.getMessage());
+          + "GenericDao::updateLocalDatabaseList\n" + ex.getMessage());
     }
   }
   
+  /**
+   * Resets databaseMap according to remote database (calls
+   * updateLocalDatabaseList for each entity class)
+   */
   public static void updateLocalDatabase() {
     databaseMap.clear();
     // simple classes
@@ -139,6 +175,9 @@ public abstract class GenericDao<K extends Serializable,
     updateLocalDatabaseList(new XmlElectiveList(), Elective.class);
   }
   
+  /**
+   * Update remote database according to databaseMap
+   */
   public static void updateGlobalDatabase() {
     XmlGenericEntityList circumstances = new XmlCircumstanceList();
     XmlGenericEntityList electives = new XmlElectiveList();
@@ -181,30 +220,25 @@ public abstract class GenericDao<K extends Serializable,
     entityLists.forEach((entityList) -> {
       if (entityList.size() > 0) {
         try {
-          mapper.writeValue(
-              new File(databasePaths.get(entityList.get(0).getClass())),
-              entityList);
+          mapper.writeValue(new File(databasePaths
+                                         .get(entityList.get(0).getClass())),
+                            entityList);
         } catch (IOException ex) {
-          System.out.println(
-              "IO exception in mapper.writeValue in "
-              + "GenericDao::updateGlobalDatabase\n"
-              + ex.getMessage());
+          System.out.println("IO exception in mapper.writeValue in "
+                             + "GenericDao::updateGlobalDatabase\n" + ex
+                                 .getMessage());
         }
       }
     });
-//    try {
-//      mapper.writeValue(
-//          new File("src/main/resources/dbLol.xml"),
-//          new Student());
-//    } catch (IOException ex) {
-//      System.out.println(
-//          "IO exception in mapper.writeValue in "
-//          + "GenericDao::updateGlobalDatabase\n"
-//          + ex.getMessage());
-//    }
   }
   
-  // create, that implemented in inheritors, calls generalCreate(new T())
+  /**
+   * Called from inheritors, adds obj to database and calls updateGlobalDatabase
+   *
+   * @param obj obj to add to database
+   * @return null if object with such id is already in databaseMap, obj
+   * otherwise
+   */
   T generalCreate(T obj) {
     if (databaseMap.get(obj.getId()) != null) {
       return null;
@@ -215,8 +249,23 @@ public abstract class GenericDao<K extends Serializable,
   }
   
   // TODO: 04.11.2019 throw exception if no object found(read, update, delete)
-  // read implemented in inheritors
   
+  /**
+   * Gets object of class T with id = key
+   *
+   * @param key object id
+   * @return required object
+   */
+  @Override
+  public T read(K key) {
+    return (T) databaseMap.get(key);
+  }
+  
+  /**
+   * Replaces object with id = obj.getId() with obj
+   *
+   * @param obj new object
+   */
   @Override
   public void update(T obj) {
     databaseMap.put(obj.getId(), obj);
@@ -226,12 +275,17 @@ public abstract class GenericDao<K extends Serializable,
     updateGlobalDatabase();
   }
   
+  /**
+   * Deletes object with id = obj.getId()
+   *
+   * @param obj object to delete
+   */
   @Override
   public void delete(T obj) {
     databaseMap.remove(obj.getId());
     dependencyMap.get(obj.getId()).forEach(dependentObjId -> {
-      updateEntityDependencies((ComplexEntity) databaseMap
-          .get(dependentObjId), true);
+      updateEntityDependencies((ComplexEntity) databaseMap.get(dependentObjId),
+                               true);
     });
     dependencyMap.remove(obj.getId());
     updateGlobalDatabase();

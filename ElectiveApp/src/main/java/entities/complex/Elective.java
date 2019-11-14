@@ -76,6 +76,7 @@ public class Elective extends ComplexEntity<String, Elective> {
     return str.toString();
   }
   
+  @Override
   public String toString(int identSpacesCount) {
     StringBuilder str = new StringBuilder();
     String spaces = getSpaceString(identSpacesCount);
@@ -157,6 +158,11 @@ public class Elective extends ComplexEntity<String, Elective> {
     this.students = students;
   }
   
+  /**
+   * @return ArrayList&lt;List&lt;GenericEntity&gt;&gt; with such order:
+   * circumstances,
+   * equipment, students
+   */
   @Override
   public List<List<GenericEntity>> getInternalEntityLists() {
     List<List<GenericEntity>> internalEntityLists = new ArrayList<>();
@@ -169,6 +175,9 @@ public class Elective extends ComplexEntity<String, Elective> {
     return internalEntityLists;
   }
   
+  /**
+   * @return ArrayList&lt;GenericEntity&gt; with such order: subject, teacher
+   */
   @Override
   public List<GenericEntity> getInternalEntities() {
     List<GenericEntity> internalEntities = new ArrayList<>();
@@ -177,6 +186,9 @@ public class Elective extends ComplexEntity<String, Elective> {
     return internalEntities;
   }
   
+  /**
+   * @param internalEntities should be with order: subject, teacher
+   */
   @Override
   public void setInternalEntities(List<GenericEntity> internalEntities) {
     subject = (Subject) internalEntities.get(0);

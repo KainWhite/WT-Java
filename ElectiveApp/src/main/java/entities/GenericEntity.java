@@ -2,6 +2,12 @@ package main.java.entities;
 
 import java.io.Serializable;
 
+/**
+ * Parent class for entities
+ *
+ * @param <K> id type
+ * @param <T> entity class
+ */
 public class GenericEntity<K extends Serializable,
     T extends Identifiable<K> & Comparable<T>>
     implements Identifiable<K>, Comparable<T> {
@@ -14,6 +20,18 @@ public class GenericEntity<K extends Serializable,
   public int compareTo(T obj) {
     return (getClass().getSimpleName() + id.toString()).compareTo(
         obj.getClass().getSimpleName() + obj.getId().toString());
+  }
+  
+  /**
+   * @param spaceCount number of spaces
+   * @return String with spaceCount spaces
+   */
+  protected String getSpaceString(int spaceCount) {
+    StringBuilder spaces = new StringBuilder();
+    for (int i = 0; i < spaceCount; i++) {
+      spaces.append(" ");
+    }
+    return spaces.toString();
   }
   
   @Override
@@ -32,14 +50,6 @@ public class GenericEntity<K extends Serializable,
       str.append(spaces).append(" id: ").append(id).append("\n");
     }
     return str.toString();
-  }
-  
-  protected String getSpaceString(int spaceCount) {
-    StringBuilder spaces = new StringBuilder();
-    for (int i = 0; i < spaceCount; i++) {
-      spaces.append(" ");
-    }
-    return spaces.toString();
   }
   
   @Override

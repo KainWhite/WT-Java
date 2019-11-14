@@ -1,7 +1,9 @@
 package main.java.mvc;
 
-public enum EntityListOperationEnum {
-  ADD,
+/** Enum for specifying update operation with entity list */
+public enum EntityListOperationEnum {/** Add entity to the list */
+ADD,
+  /** Remove entity from the list */
   REMOVE,
-  CLEAR
-}
+  /** Clear list */
+  CLEAR}

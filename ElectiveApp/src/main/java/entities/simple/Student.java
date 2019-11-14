@@ -30,6 +30,7 @@ public class Student extends GenericEntity<String, Student> {
     return str.toString();
   }
   
+  @Override
   public String toString(int identSpacesCount) {
     StringBuilder str = new StringBuilder();
     String spaces = getSpaceString(identSpacesCount);

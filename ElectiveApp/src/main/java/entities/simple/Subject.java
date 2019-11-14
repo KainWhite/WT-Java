@@ -23,6 +23,7 @@ public class Subject extends GenericEntity<String, Subject> {
     return str.toString();
   }
   
+  @Override
   public String toString(int identSpacesCount) {
     StringBuilder str = new StringBuilder();
     String spaces = getSpaceString(identSpacesCount);

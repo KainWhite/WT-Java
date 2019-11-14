@@ -7,15 +7,16 @@ public class DaoTeacher extends GenericDao<String, Teacher> {
     super();
   }
   
+  /**
+   * Creates Teacher object with id = key and passes it to generalCreate
+   *
+   * @param key object id
+   * @return generalCreate(createdObject)
+   */
   @Override
   public Teacher create(String key) {
     Teacher obj = new Teacher();
     obj.setId(key);
     return generalCreate(obj);
-  }
-  
-  @Override
-  public Teacher read(String key) {
-    return (Teacher) databaseMap.get(key);
   }
 }

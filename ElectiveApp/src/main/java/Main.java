@@ -13,9 +13,11 @@ public class Main {
     boolean loop = true;
     while (loop) {
       String[] command = in.nextLine().split(" ");
-      loop = controller
-          .processCommand(command[0],
-                          Arrays.copyOfRange(command, 1, command.length));
+      loop = controller.processCommand(command[0],
+                                       Arrays.copyOfRange(command,
+                                                          1,
+                                                          command.length));
     }
+    // TODO: 14.11.2019 make readme for all folders 
   }
 }

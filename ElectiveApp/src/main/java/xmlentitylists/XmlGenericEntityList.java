@@ -8,6 +8,11 @@ import java.util.Collection;
 import java.util.List;
 import java.util.function.Consumer;
 
+/**
+ * Parent class for XmlEntityList
+ *
+ * @param <T> entity class
+ */
 public class XmlGenericEntityList<T extends GenericEntity> {
   private List<T> entities;
   
@@ -33,6 +38,9 @@ public class XmlGenericEntityList<T extends GenericEntity> {
     }
   }
   
+  /**
+   * @return class of entities in the list;
+   */
   @JsonIgnore
   public Class getListType() {
     return GenericEntity.class;

@@ -9,8 +9,7 @@ import main.java.xmlentitylists.XmlGenericEntityList;
 import java.util.List;
 
 @JacksonXmlRootElement(localName = "Circumstances")
-public class XmlCircumstanceList
-    extends XmlGenericEntityList<Circumstance> {
+public class XmlCircumstanceList extends XmlGenericEntityList<Circumstance> {
   @JacksonXmlElementWrapper(useWrapping = false)
   @JacksonXmlProperty(localName = "Circumstance")
   private List<Circumstance> entities;

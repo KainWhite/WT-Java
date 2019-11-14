@@ -41,6 +41,7 @@ public class Teacher extends ComplexEntity<String, Teacher> {
     return str.toString();
   }
   
+  @Override
   public String toString(int identSpacesCount) {
     StringBuilder str = new StringBuilder();
     String spaces = getSpaceString(identSpacesCount);
@@ -76,6 +77,10 @@ public class Teacher extends ComplexEntity<String, Teacher> {
     this.subjects = subjects;
   }
   
+  /**
+   * @return ArrayList&lt;List&lt;GenericEntity&gt;&gt; with such order:
+   * subjects
+   */
   @Override
   public List<List<GenericEntity>> getInternalEntityLists() {
     List<List<GenericEntity>> internalEntityLists = new ArrayList<>();
@@ -84,6 +89,9 @@ public class Teacher extends ComplexEntity<String, Teacher> {
     return internalEntityLists;
   }
   
+  /**
+   * @return ArrayList&lt;GenericEntity&gt; with no elements
+   */
   @Override
   public List<GenericEntity> getInternalEntities() {
     return new ArrayList<>();

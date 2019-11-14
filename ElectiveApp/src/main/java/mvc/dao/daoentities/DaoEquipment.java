@@ -7,15 +7,16 @@ public class DaoEquipment extends GenericDao<String, Equipment> {
     super();
   }
   
+  /**
+   * Creates Equipment object with id = key and passes it to generalCreate
+   *
+   * @param key object id
+   * @return generalCreate(createdObject)
+   */
   @Override
   public Equipment create(String key) {
     Equipment obj = new Equipment();
     obj.setId(key);
     return generalCreate(obj);
-  }
-  
-  @Override
-  public Equipment read(String key) {
-    return (Equipment) databaseMap.get(key);
   }
 }

@@ -19,6 +19,9 @@ import main.java.mvc.dao.daoentities.DaoTeacher;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Factory that creates Dao objects
+ */
 public class DaoFactory implements DaoFactoryInterface {
   private Map<Class, DaoCreatorInterface> creators;
   
@@ -33,11 +36,18 @@ public class DaoFactory implements DaoFactoryInterface {
     creators.put(Teacher.class, () -> new DaoTeacher());
   }
   
+  /**
+   * Gets DaoObject for Tmp class
+   *
+   * @param Tmp Class for which Dao object is required
+   * @return null if there are no Dao class for Tmp, Dao object otherwise
+   */
   @Override
   public DaoInterface getDao(Class Tmp) {
     DaoCreatorInterface creator = creators.get(Tmp);
     if (creator == null) {
       System.out.println("Dao object for " + Tmp + " not found.");
+      return null;
     }
     return creator.create();
   }

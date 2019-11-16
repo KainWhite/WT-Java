@@ -28,11 +28,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
+// TODO: 15.11.2019 wrap all parameters in italic and everything other in 
+//  bold in javadoc 
 /**
  * Parent class for Dao classes
  *
- * @param <K> id type
+ * @param <K> <b>id</b> type
  * @param <T> entity class
  */
 public abstract class GenericDao<K extends Serializable,
@@ -62,10 +63,10 @@ public abstract class GenericDao<K extends Serializable,
   /**
    * Adds dependentObjId to dependencies of mainObjId
    *
-   * @param mainObjId      id of object, that is in an object with id =
-   *                       dependentObjId
-   * @param dependentObjId id of object, that contains object with id =
-   *                       mainObjId
+   * @param mainObjId      <b>id</b> of object, that is in an object with
+   *                       <b>id</b> = dependentObjId
+   * @param dependentObjId <b>id</b> of object, that contains object with 
+   *                       <b>id</b> = mainObjId
    */
   private static void updateDependencyMap(Serializable mainObjId,
                                           Serializable dependentObjId) {

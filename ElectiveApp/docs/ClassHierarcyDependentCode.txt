@@ -1,2 +1,14 @@
-Controller::update - type checks: (int), (String), else (id of GenericEntity); if u have another types of class fields, check them here.
-Model::update - the same as Controller::update
+entities - if u want add some entity, and if its fields don't conatin another entities, put it in entities.simple and extend GenericEntity, otherwise put it in entities.complex and extend ComplexEntity
+
+mvc.controller.Controller::update - type checks: (int), (String), (XmlGenericEntityList), (GenericEntity); if u have another types of class fields, check them here.
+
+mvc.dao.daoentities - if u add some entity, u should implement DAO for it, extend GenericDao and put it here
+
+mvc.dao.daoentities.GenericDao::updateLocalDatabase - if u add some entity, call update for it
+mvc.dao.daoentities.GenericDao::updateGlobalDatabase - if u add some entity, add it here
+
+mvc.dao.DaoFactory::DaoFactory() - if u add some entity, add it here
+
+mvc.model.Model::update - as the result of mvc.controller.Controller::update
+
+xmlentitylists - same as entities, extend XmlGenericEntity or XmlComplexEntity

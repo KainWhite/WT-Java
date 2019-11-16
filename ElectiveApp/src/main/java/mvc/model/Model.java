@@ -18,11 +18,11 @@ import java.lang.reflect.InvocationTargetException;
 public class Model {
   private View view;
   private DaoFactory daoFactory;
-  /** latest received Dao */
+  /** latest received <b>Dao</b> */
   private DaoInterface recentDao;
-  /** latest received Entity */
+  /** latest received <b>Entity</b> */
   private GenericEntity recentEntity;
-  /** latest received Entity field array */
+  /** latest received <b>Entity</b> field array */
   private Field[] recentEntityFields;
   
   {
@@ -37,10 +37,10 @@ public class Model {
   // TODO: 13.11.2019 remove reflection 
   
   /**
-   * Gets object from dao, sets recentDao and recentEntity
+   * Gets object from <b>Dao</b>, sets <b>recentDao</b> and <b>recentEntity</b>
    *
-   * @param objId id of object to get
-   * @return received object or null, if there are no object with such id
+   * @param objId <b>id</b> of object to get
+   * @return received object or null, if there are no object with such <b>id</b>
    */
   private GenericEntity getEntityById(String objId) {
     Class genericEntityClass;
@@ -59,10 +59,11 @@ public class Model {
   }
   
   /**
-   * Gets number of fields of object with id = objId, sets recentEntityFields
+   * Gets number of fields of object with <b>id</b> = <i>objId</i>, sets
+   * <b>recentEntityFields</b>
    *
-   * @param objId id of object to get fields from
-   * @return number of fields of object with id = objId
+   * @param objId <b>id</b> of object to get fields from
+   * @return number of fields of object with <b>id</b> = <i>objId</i>
    */
   public int getEntityFieldCount(String objId) {
     GenericEntity obj = getEntityById(objId);
@@ -75,17 +76,18 @@ public class Model {
   }
   
   /**
-   * Gets field from recentEntityFields with specific fieldNumber
+   * Gets field from <b>recentEntityFields</b> with specific <i>fieldNumber</i>
    *
    * @param fieldNumber number of field to get
-   * @return field from recentEntityFields with specific fieldNumber
+   * @return field from <b>recentEntityFields</b> with specific
+   * <i>fieldNumber</i>
    */
   public Field getRecentEntityField(int fieldNumber) {
     return recentEntityFields[fieldNumber];
   }
   
   /**
-   * Calls getter of object targetObj for field fieldName
+   * Calls getter of object <i>targetObj</i> for field <i>fieldNumber</i>
    *
    * @param fieldName name of field to call getter for
    * @param targetObj object to call getter from
@@ -109,7 +111,8 @@ public class Model {
   }
   
   /**
-   * Calls setter of object targetObj for field fieldName with value newValue
+   * Calls setter of object <i>targetObj</i> for field <i>fieldName</i> with
+   * value <i>newValue</i>
    *
    * @param fieldName name of field to call getter for
    * @param targetObj object to call getter from
@@ -133,10 +136,10 @@ public class Model {
   }
   
   /**
-   * Creates object of class Tmp with id = objId
+   * Creates object of class <i>Tmp</i> with <b>id</b> = <i>objId</i>
    *
    * @param Tmp   class of object to create
-   * @param objId id of object to create
+   * @param objId <b>id</b> of object to create
    */
   public void create(Class Tmp, String objId) {
     DaoInterface daoTmp = daoFactory.getDao(Tmp);
@@ -149,9 +152,9 @@ public class Model {
   }
   
   /**
-   * Prints object with id = objId
+   * Prints object with <b>id</b> = <i>objId</i>
    *
-   * @param objId id of object to print
+   * @param objId <b>id</b> of object to print
    */
   public void read(String objId) {
     GenericEntity obj = getEntityById(objId);
@@ -164,11 +167,10 @@ public class Model {
   }
   
   /**
-   * Updates primitive type field <b>field</b> of object with id =
-   * <b>objId</b> with
-   * <b>fieldValue</b>
+   * Updates primitive type field <i>field</i> of object with <b>id</b> =
+   * <i>objId</i> with <i>fieldValue</i>
    *
-   * @param objId      id of object to update
+   * @param objId      <b>id</b> of object to update
    * @param field      field to update
    * @param fieldValue new value for field
    */
@@ -190,12 +192,12 @@ public class Model {
   }
   
   /**
-   * Updates field of Entity class <b>field</b> of object with id =
-   * <b>objId</b> with object, which id = <b>internalObjId</b>
+   * Updates Entity field <i>field</i> of object with <b>id</b> =
+   * <i>objId</i> with object, which <b>id</b> = <i>internalObjId</i>
    *
-   * @param objId         id of object to update
+   * @param objId         <b>id</b> of object to update
    * @param field         field to update
-   * @param internalObjId object id to update field with
+   * @param internalObjId object <b>id</b> to update field with
    */
   public void updateEntityField(String objId,
                                 Field field,
@@ -218,13 +220,15 @@ public class Model {
   }
   
   /**
-   * Updates field of type XmlGenericEntityList <b>field</b> of object with id =
-   * <b>objId</b> according to operation op
+   * Updates <b>XmlGenericEntityList</b> field <i>field</i> of object with
+   * <b>id</b> = <i>objId</i> according to operation <i>op</i>
    *
-   * @param objId         id of object to update
+   * @param objId         <b>id</b> of object to update
    * @param field         field to update
-   * @param op            enum value describing what operation to perform
-   * @param internalObjId object id to update XmlGenericEntityList with
+   * @param op            <b>EntityListOperationEnum</b> value describing what
+   *                      operation to perform
+   * @param internalObjId object <b>id</b> to update 
+   *                      <b>XmlGenericEntityList</b> with
    */
   public void updateEntityListField(String objId,
                                     Field field,
@@ -286,9 +290,9 @@ public class Model {
   }
   
   /**
-   * Deletes object with id = objId
+   * Deletes object with <b>id</b> = <i>objId</i>
    *
-   * @param objId id of object to delete
+   * @param objId <b>id</b> of object to delete
    */
   public void delete(String objId) {
     GenericEntity obj = getEntityById(objId);

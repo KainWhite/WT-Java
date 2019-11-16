@@ -55,11 +55,11 @@ public class Controller {
   }
   
   /**
-   * Parses input command and calls appropriate Controller methods
+   * Parses input command and calls appropriate <b>Controller</b> methods
    *
    * @param command   command string
    * @param arguments anything after command string
-   * @return false, if user asked to quit program, true otherwise
+   * @return <b>false</b>, if user asked to quit program, <b>true</b> otherwise
    */
   public boolean processCommand(String command, String[] arguments) {
     switch (command) {
@@ -110,10 +110,10 @@ public class Controller {
   }
   
   /**
-   * Creates object of className with id = objId
+   * Creates object of <i>className</i> with <b>id</b> = <i>objId</i>
    *
    * @param className one of class names in entities folder
-   * @param objId     object id to set
+   * @param objId     object <b>id</b> to set
    */
   private void create(String className, String objId) {
     if (className.equals("GenericEntity")) {
@@ -135,9 +135,9 @@ public class Controller {
   }
   
   /**
-   * Prints object with id = objId
+   * Prints object with <b>id</b> = objId
    *
-   * @param objId id of object to print
+   * @param objId <b>id</b> of object to print
    */
   private void read(String objId) {
     // TODO: 14.11.2019 add read by class name 
@@ -145,9 +145,9 @@ public class Controller {
   }
   
   /**
-   * Updates object with id = objId
+   * Updates object with <b>id</b> = objId
    *
-   * @param objId id of object to update
+   * @param objId <b>id</b> of object to update
    */
   private void update(String objId) {
     // TODO: 04.11.2019 add exit option in any state 
@@ -218,9 +218,9 @@ public class Controller {
   }
   
   /**
-   * Deletes object with id = objId
+   * Deletes object with <b>id</b> = objId
    *
-   * @param objId id of object to delete
+   * @param objId <b>id</b> of object to delete
    */
   private void delete(String objId) {
     model.delete(objId);

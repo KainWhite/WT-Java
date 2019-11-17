@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="equipment-types">
+  <xs:element name="Equipment" type="EquipmentType"/>
+  <xs:complexType name="EquipmentItemType">
+    <xs:all>
+      <xs:element type="xs:string" name="name" minOccurs="0"/>
+    </xs:all>
+    <xs:attribute type="xs:string" name="id" use="required"/>
+  </xs:complexType>
+  <xs:complexType name="EquipmentType">
+    <xs:sequence>
+      <xs:element type="EquipmentItemType" name="EquipmentItem" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

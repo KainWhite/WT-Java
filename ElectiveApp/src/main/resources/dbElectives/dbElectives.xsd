@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:crc="circumstance-types"
+           xmlns:eqp="equipment-types"
+           xmlns:std="student-types"
+           xmlns:sbj="subject-types"
+           xmlns:tch="teacher-types">
+  <xs:import schemaLocation="../dbCircumstances/dbCircumstances.xsd"
+             namespace="circumstance-types"/>
+  <xs:import schemaLocation="../dbEquipment/dbEquipment.xsd"
+             namespace="equipment-types"/>
+  <xs:import schemaLocation="../dbStudents/dbStudents.xsd"
+             namespace="student-types"/>
+  <xs:import schemaLocation="../dbSubjects/dbSubjects.xsd"
+             namespace="subject-types"/>
+  <xs:import schemaLocation="../dbTeachers/dbTeachers.xsd"
+             namespace="teacher-types"/>
+  <xs:element name="Electives">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Elective" maxOccurs="unbounded" minOccurs="0">
+          <xs:complexType>
+            <xs:all>
+              <xs:element type="sbj:SubjectType" name="subject" minOccurs="0"/>
+              <xs:element type="tch:TeacherType" name="teacher" minOccurs="0"/>
+              <xs:element type="crc:CircumstancesType" name="Circumstances" minOccurs="0"/>
+              <xs:element type="eqp:EquipmentType" name="Equipment" minOccurs="0"/>
+              <xs:element type="std:StudentsType" name="Students" minOccurs="0"/>
+            </xs:all>
+            <xs:attribute type="xs:string" name="id" use="required"/>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <!--<xs:element name="Electives" type="ElectivesType"/>-->
+  <!--<xs:complexType name="ElectiveType">-->
+    <!--<xs:all>-->
+      <!--<xs:element type="sbj:SubjectType" name="subject" minOccurs="0"/>-->
+      <!--<xs:element type="tch:TeacherType" name="teacher" minOccurs="0"/>-->
+      <!--<xs:element type="crc:CircumstancesType" name="Circumstances" minOccurs="0"/>-->
+      <!--<xs:element type="eqp:EquipmentType" name="Equipment" minOccurs="0"/>-->
+      <!--<xs:element type="std:StudentsType" name="Students" minOccurs="0"/>-->
+    <!--</xs:all>-->
+    <!--<xs:attribute type="xs:string" name="id" use="required"/>-->
+  <!--</xs:complexType>-->
+  <!--<xs:complexType name="ElectivesType">-->
+    <!--<xs:sequence>-->
+      <!--<xs:element type="ElectiveType" name="Elective"/>-->
+    <!--</xs:sequence>-->
+  <!--</xs:complexType>-->
+</xs:schema>

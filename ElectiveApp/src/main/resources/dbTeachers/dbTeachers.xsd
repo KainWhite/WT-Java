@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:sbj="subject-types"
+           targetNamespace="teacher-types">
+  <xs:import schemaLocation="../dbSubjects/dbSubjects.xsd"
+             namespace="subject-types"/>
+  <xs:element name="Teachers" type="TeachersType"/>
+  <xs:complexType name="TeacherType">
+    <xs:all>
+      <xs:element type="xs:string" name="name" minOccurs="0"/>
+      <xs:element type="sbj:SubjectsType" name="Subjects" minOccurs="0"/>
+    </xs:all>
+    <xs:attribute type="xs:string" name="id" use="required"/>
+  </xs:complexType>
+  <xs:complexType name="TeachersType">
+    <xs:sequence>
+      <xs:element type="TeacherType" name="Teacher" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

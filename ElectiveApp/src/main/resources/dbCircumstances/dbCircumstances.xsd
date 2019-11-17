@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="circumstance-types">
+<xs:element name="Circumstances" type="CircumstancesType"/>
+  <xs:complexType name="CircumstanceType">
+    <xs:all>
+      <xs:element type="xs:integer" name="roomNumber" minOccurs="0"/>
+      <xs:element type="xs:dateTime" name="time" minOccurs="0"/>
+    </xs:all>
+    <xs:attribute type="xs:string" name="id" use="required"/>
+  </xs:complexType>
+  <xs:complexType name="CircumstancesType">
+    <xs:sequence>
+      <xs:element type="CircumstanceType" name="Circumstance" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

@@ -1,0 +1,8 @@
+<Teachers>
+  <Teacher id="t">
+    <Subjects>
+      <Subject id="chem"/>
+      <Subject id="math"/>
+    </Subjects>
+  </Teacher>
+</Teachers>

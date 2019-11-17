@@ -1,5 +1,7 @@
 package main.java.entities;
 
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
+
 import java.io.Serializable;
 
 /**
@@ -8,13 +10,23 @@ import java.io.Serializable;
  * @param <K> id type
  * @param <T> entity class
  */
-public class GenericEntity<K extends Serializable,
-    T extends Identifiable<K> & Comparable<T>>
+public abstract class GenericEntity<K extends Serializable,
+    T extends GenericEntity>
     implements Identifiable<K>, Comparable<T> {
-  protected K id;
+  @JacksonXmlProperty(isAttribute = true)
+  private K id;
   
-  public GenericEntity() {
+  {
+    id = null;
   }
+  
+  /**
+   * Creates object with the same type and id as target object's id and default 
+   * fields
+   *
+   * @return created object
+   */
+  public abstract T createNewInstance();
   
   @Override
   public int compareTo(T obj) {

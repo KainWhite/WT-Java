@@ -1,5 +1,6 @@
 package main.java.entities.complex;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import main.java.entities.ComplexEntity;
 import main.java.entities.GenericEntity;
@@ -7,6 +8,8 @@ import main.java.entities.simple.Circumstance;
 import main.java.entities.simple.Equipment;
 import main.java.entities.simple.Student;
 import main.java.entities.simple.Subject;
+import main.java.exceptions.NotFoundException;
+import main.java.xmlentitylists.XmlGenericEntityList;
 import main.java.xmlentitylists.simple.XmlCircumstanceList;
 import main.java.xmlentitylists.simple.XmlEquipmentList;
 import main.java.xmlentitylists.simple.XmlStudentList;
@@ -14,6 +17,7 @@ import main.java.xmlentitylists.simple.XmlStudentList;
 import java.util.ArrayList;
 import java.util.List;
 
+@JsonInclude(JsonInclude.Include.NON_DEFAULT)
 public class Elective extends ComplexEntity<String, Elective> {
   @JacksonXmlProperty(localName = "Circumstances")
   private XmlCircumstanceList circumstances;
@@ -25,15 +29,90 @@ public class Elective extends ComplexEntity<String, Elective> {
   private Teacher teacher;
   
   {
-    id = null;
     subject = null;
-    circumstances = new XmlCircumstanceList();
-    equipment = new XmlEquipmentList();
+    circumstances = null;
+    equipment = null;
     teacher = null;
-    students = new XmlStudentList();
+    students = null;
   }
   
-  public Elective() {
+  @Override
+  public Elective createNewInstance() {
+    Elective obj = new Elective();
+    obj.setId(this.getId());
+    return obj;
+  }
+  
+  @Override
+  public void resetInternalEntityList(String internalEntityListName) 
+      throws NotFoundException {
+    switch (internalEntityListName) {
+      case "circumstances":
+        circumstances = new XmlCircumstanceList();
+        break;
+      case "equipment":
+        equipment = new XmlEquipmentList();
+        break;
+      case "students":
+        students = new XmlStudentList();
+        break;
+      default:
+        throw new NotFoundException("No entity list with name"
+                                    + internalEntityListName + ".");
+    }
+  }
+  
+  @Override
+  public XmlGenericEntityList getInternalXmlList(String internalEntityListName)
+      throws NotFoundException {
+    switch (internalEntityListName) {
+      case "circumstances":
+        return circumstances;
+      case "equipment":
+        return equipment;
+      case "students":
+        return students;
+      default:
+        throw new NotFoundException("No entity list with name"
+                                    + internalEntityListName + ".");
+    }
+  }
+  
+  /**
+   * @return ArrayList&lt;List&lt;GenericEntity&gt;&gt; with such order:
+   * circumstances,
+   * equipment, students
+   */
+  @Override
+  public List<List<GenericEntity>> getInternalEntityLists() {
+    List<List<GenericEntity>> internalEntityLists = new ArrayList<>();
+    internalEntityLists.add((List<GenericEntity>) (List<?>) circumstances
+        .getEntities());
+    internalEntityLists.add((List<GenericEntity>) (List<?>) equipment
+        .getEntities());
+    internalEntityLists.add((List<GenericEntity>) (List<?>) students
+        .getEntities());
+    return internalEntityLists;
+  }
+  
+  /**
+   * @return ArrayList&lt;GenericEntity&gt; with such order: subject, teacher
+   */
+  @Override
+  public List<GenericEntity> getInternalEntities() {
+    List<GenericEntity> internalEntities = new ArrayList<>();
+    internalEntities.add(subject);
+    internalEntities.add(teacher);
+    return internalEntities;
+  }
+  
+  /**
+   * @param internalEntities should be with order: subject, teacher
+   */
+  @Override
+  public void setInternalEntities(List<GenericEntity> internalEntities) {
+    subject = (Subject) internalEntities.get(0);
+    teacher = (Teacher) internalEntities.get(1);
   }
   
   @Override
@@ -156,42 +235,5 @@ public class Elective extends ComplexEntity<String, Elective> {
   
   public void setStudents(XmlStudentList students) {
     this.students = students;
-  }
-  
-  /**
-   * @return ArrayList&lt;List&lt;GenericEntity&gt;&gt; with such order:
-   * circumstances,
-   * equipment, students
-   */
-  @Override
-  public List<List<GenericEntity>> getInternalEntityLists() {
-    List<List<GenericEntity>> internalEntityLists = new ArrayList<>();
-    internalEntityLists.add((List<GenericEntity>) (List<?>) circumstances
-        .getEntities());
-    internalEntityLists.add((List<GenericEntity>) (List<?>) equipment
-        .getEntities());
-    internalEntityLists.add((List<GenericEntity>) (List<?>) students
-        .getEntities());
-    return internalEntityLists;
-  }
-  
-  /**
-   * @return ArrayList&lt;GenericEntity&gt; with such order: subject, teacher
-   */
-  @Override
-  public List<GenericEntity> getInternalEntities() {
-    List<GenericEntity> internalEntities = new ArrayList<>();
-    internalEntities.add(subject);
-    internalEntities.add(teacher);
-    return internalEntities;
-  }
-  
-  /**
-   * @param internalEntities should be with order: subject, teacher
-   */
-  @Override
-  public void setInternalEntities(List<GenericEntity> internalEntities) {
-    subject = (Subject) internalEntities.get(0);
-    teacher = (Teacher) internalEntities.get(1);
   }
 }

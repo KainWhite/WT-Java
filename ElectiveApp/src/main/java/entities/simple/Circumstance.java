@@ -1,12 +1,14 @@
 package main.java.entities.simple;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import main.java.entities.GenericEntity;
 
 import java.util.Date;
 
+@JsonInclude(JsonInclude.Include.NON_DEFAULT)
 public class Circumstance extends GenericEntity<String, Circumstance> {
   private int roomNumber;
-  // TODO: 14.11.2019 deal with Date in circumstance 
+  // TODO: 14.11.2019 deal with Date in circumstance and make it Calendar
   private Date time;
   
   {
@@ -14,7 +16,11 @@ public class Circumstance extends GenericEntity<String, Circumstance> {
     time = null;
   }
   
-  public Circumstance() {
+  @Override
+  public Circumstance createNewInstance() {
+    Circumstance obj = new Circumstance();
+    obj.setId(this.getId());
+    return obj;
   }
   
   @Override

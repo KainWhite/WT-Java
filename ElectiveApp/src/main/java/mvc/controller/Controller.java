@@ -104,7 +104,7 @@ public class Controller {
       case "q":
         return false;
       default:
-        System.out.printf("Unknown command %s", command);
+        System.out.printf("Unknown command %s\n", command);
         return true;
     }
   }

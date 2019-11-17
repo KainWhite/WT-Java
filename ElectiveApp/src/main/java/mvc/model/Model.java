@@ -154,9 +154,10 @@ public class Model {
    */
   public void updateSimpleField(String objId, Field field, Object fieldValue) {
     GenericEntity obj = getEntityById(objId);
-    if (fieldValue.getClass() != field.getType()) {
+    if (field.getClass().isAssignableFrom(fieldValue.getClass())) {
       System.out.println(
-          "Entered value type differs from field type.\n"
+          "Entered value with type (" + fieldValue.getClass() + ") "
+          + "can't be assigned to field with type (" + field.getType() + ").\n"
           + "Update failed.");
       return;
     }

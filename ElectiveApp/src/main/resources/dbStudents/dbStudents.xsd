@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema elementFormDefault="qualified"
-           xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           targetNamespace="student-types">
+           xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:element name="Students" type="StudentsType"/>
+  <xs:complexType name="StudentsType">
+    <xs:sequence>
+      <xs:element type="StudentType" name="Student" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
   <xs:complexType name="StudentType">
     <xs:all>
       <xs:element type="xs:string" name="name" minOccurs="0"/>
       <xs:element type="xs:integer" name="form" minOccurs="0"/>
     </xs:all>
     <xs:attribute type="xs:string" name="id" use="required"/>
-  </xs:complexType>
-  <xs:complexType name="StudentsType">
-    <xs:sequence>
-      <xs:element type="StudentType" name="Student" maxOccurs="unbounded" minOccurs="0"/>
-    </xs:sequence>
   </xs:complexType>
 </xs:schema>

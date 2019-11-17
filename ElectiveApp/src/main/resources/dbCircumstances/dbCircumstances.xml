@@ -1,3 +1,5 @@
 <Circumstances>
-  <Circumstance id="c"/>
+  <Circumstance id="c">
+    <roomNumber>1</roomNumber>
+  </Circumstance>
 </Circumstances>

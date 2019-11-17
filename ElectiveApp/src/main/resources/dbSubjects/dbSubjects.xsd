@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema elementFormDefault="qualified"
-           xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           targetNamespace="subject-types">
+           xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:element name="Subjects" type="SubjectsType"/>
+  <xs:complexType name="SubjectsType">
+    <xs:sequence>
+      <xs:element type="SubjectType" name="Subject" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
   <xs:complexType name="SubjectType">
     <xs:all>
       <xs:element type="xs:string" name="name" minOccurs="0"/>
     </xs:all>
     <xs:attribute type="xs:string" name="id" use="required"/>
-  </xs:complexType>
-  <xs:complexType name="SubjectsType">
-    <xs:sequence>
-      <xs:element type="SubjectType" name="Subject" maxOccurs="unbounded" minOccurs="0"/>
-    </xs:sequence>
   </xs:complexType>
 </xs:schema>

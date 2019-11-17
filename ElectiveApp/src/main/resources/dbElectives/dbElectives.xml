@@ -1,7 +1,5 @@
 <Electives>
   <Elective id="b">
-    <subject id="math"/>
-    <teacher id="t"/>
     <Circumstances>
       <Circumstance id="c"/>
     </Circumstances>
@@ -11,5 +9,7 @@
     <Students>
       <Student id="a"/>
     </Students>
+    <Subject id="math"/>
+    <Teacher id="t"/>
   </Elective>
 </Electives>

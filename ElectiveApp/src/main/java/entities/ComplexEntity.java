@@ -1,6 +1,8 @@
 package main.java.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import main.java.exceptions.NotFoundException;
+import main.java.xmlentitylists.XmlGenericEntityList;
 
 import java.io.Serializable;
 import java.util.List;
@@ -12,8 +14,21 @@ import java.util.List;
  * @param <T> entity class
  */
 public abstract class ComplexEntity<K extends Serializable,
-    T extends Identifiable<K> & Comparable<T>>
+    T extends GenericEntity>
     extends GenericEntity<K, T> {
+  /**
+   * Sets new XmlEntityList to internal list with name
+   * <i>internalEntityListName</i>
+   *
+   * @param internalEntityListName name of list to reset
+   */
+  public abstract void resetInternalEntityList(
+      String internalEntityListName) throws NotFoundException;
+  
+  @JsonIgnore
+  public abstract XmlGenericEntityList getInternalXmlList(
+      String internalEntityListName) throws NotFoundException;
+  
   @JsonIgnore
   public abstract List<List<GenericEntity>> getInternalEntityLists();
   

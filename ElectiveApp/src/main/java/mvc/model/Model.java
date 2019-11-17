@@ -1,6 +1,8 @@
 package main.java.mvc.model;
 
+import main.java.entities.ComplexEntity;
 import main.java.entities.GenericEntity;
+import main.java.exceptions.NotFoundException;
 import main.java.mvc.EntityListOperationEnum;
 import main.java.mvc.dao.DaoFactory;
 import main.java.mvc.dao.daoentities.DaoInterface;
@@ -84,30 +86,6 @@ public class Model {
    */
   public Field getRecentEntityField(int fieldNumber) {
     return recentEntityFields[fieldNumber];
-  }
-  
-  /**
-   * Calls getter of object <i>targetObj</i> for field <i>fieldNumber</i>
-   *
-   * @param fieldName name of field to call getter for
-   * @param targetObj object to call getter from
-   * @return object returned by getter
-   */
-  private Object callGetter(String fieldName, Object targetObj) {
-    try {
-      return new PropertyDescriptor(fieldName, targetObj.getClass())
-          .getReadMethod().invoke(targetObj);
-    } catch (IntrospectionException ex) {
-//      System.out.println(introspectionExceptionAdditionalMessage
-//                         + ex.getMessage());
-    } catch (IllegalAccessException ex) {
-//      System.out.println(illegalAccessExceptionAdditionalMessage
-//                         + ex.getMessage());
-    } catch (InvocationTargetException ex) {
-//      System.out.println(invocationTargetExceptionAdditionalMessage
-//                         + ex.getMessage());
-    }
-    return null;
   }
   
   /**
@@ -227,27 +205,36 @@ public class Model {
    * @param field         field to update
    * @param op            <b>EntityListOperationEnum</b> value describing what
    *                      operation to perform
-   * @param internalObjId object <b>id</b> to update 
+   * @param internalObjId object <b>id</b> to update
    *                      <b>XmlGenericEntityList</b> with
    */
   public void updateEntityListField(String objId,
                                     Field field,
                                     EntityListOperationEnum op,
                                     String internalObjId) {
-    GenericEntity obj = getEntityById(objId);
+    ComplexEntity obj = (ComplexEntity) getEntityById(objId);
     if (obj == null) {
       System.out.println("Update failed.");
       return;
     }
-    XmlGenericEntityList entityList = (XmlGenericEntityList) callGetter(field
-                                                                            .getName(),
-                                                                        obj);
-    if (entityList == null) {
-      System.out.println("Entity list is null.\n"
+    XmlGenericEntityList entityList = null;
+    try {
+      entityList = obj.getInternalXmlList(field.getName());
+    } catch (NotFoundException e) {
+      System.out.println(e.getMessage() + "\n" 
                          + "Update failed.");
       return;
     }
-    
+    if (entityList == null) {
+      try {
+        obj.resetInternalEntityList(field.getName());
+        entityList = obj.getInternalXmlList(field.getName());
+      } catch (NotFoundException e) {
+        System.out.println(e.getMessage() + "\n"
+                           + "Update failed.");
+        return;
+      }
+    }
     GenericEntity internalObj = null;
     switch (op) {
       case ADD:

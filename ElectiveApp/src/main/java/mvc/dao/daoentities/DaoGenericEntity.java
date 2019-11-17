@@ -8,12 +8,12 @@ public class DaoGenericEntity extends GenericDao<String, GenericEntity> {
   }
   
   /**
-   * Creates GenericEntity object
+   * Implementation of create method in DaoInterface
    *
-   * @return created object
+   * @return null
    */
   @Override
   public GenericEntity create(String key) {
-    return new GenericEntity();
+    return null;
   }
 }

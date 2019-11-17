@@ -1,7 +1,6 @@
 <Students>
-  <Student>
-    <id>a</id>
+  <Student id="a">
     <name>sdfasd</name>
-    <form>-1</form>
   </Student>
+  <Student id="z"/>
 </Students>

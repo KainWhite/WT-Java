@@ -1,0 +1,15 @@
+<Electives>
+  <Elective id="b">
+    <subject id="math"/>
+    <teacher id="t"/>
+    <Circumstances>
+      <Circumstance id="c"/>
+    </Circumstances>
+    <Equipment>
+      <EquipmentItem id="e"/>
+    </Equipment>
+    <Students>
+      <Student id="a"/>
+    </Students>
+  </Elective>
+</Electives>

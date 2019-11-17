@@ -1,7 +1,9 @@
 package main.java.entities.simple;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import main.java.entities.GenericEntity;
 
+@JsonInclude(JsonInclude.Include.NON_DEFAULT)
 public class Subject extends GenericEntity<String, Subject> {
   private String name;
   
@@ -9,7 +11,11 @@ public class Subject extends GenericEntity<String, Subject> {
     name = null;
   }
   
-  public Subject() {
+  @Override
+  public Subject createNewInstance() {
+    Subject obj = new Subject();
+    obj.setId(this.getId());
+    return obj;
   }
   
   @Override

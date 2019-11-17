@@ -1,9 +1,9 @@
 package main.java.entities.simple;
 
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import main.java.entities.GenericEntity;
 
-@JacksonXmlRootElement(localName = "LOL")
+@JsonInclude(JsonInclude.Include.NON_DEFAULT)
 public class Student extends GenericEntity<String, Student> {
   private String name;
   private int form;
@@ -13,7 +13,11 @@ public class Student extends GenericEntity<String, Student> {
     form = -1;
   }
   
-  public Student() {
+  @Override
+  public Student createNewInstance() {
+    Student obj = new Student();
+    obj.setId(this.getId());
+    return obj;
   }
   
   @Override

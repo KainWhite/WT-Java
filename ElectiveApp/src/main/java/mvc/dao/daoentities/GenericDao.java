@@ -30,6 +30,7 @@ import java.util.Map;
 import java.util.Set;
 // TODO: 15.11.2019 wrap all parameters in italic and everything other in 
 //  bold in javadoc 
+
 /**
  * Parent class for Dao classes
  *
@@ -48,12 +49,17 @@ public abstract class GenericDao<K extends Serializable,
     databaseMap = new HashMap<>();
     databasePaths = new HashMap<>();
     databasePaths.put(Circumstance.class,
-                      "src/main/resources/dbCircumstances.xml");
-    databasePaths.put(Elective.class, "src/main/resources/dbElectives.xml");
-    databasePaths.put(Equipment.class, "src/main/resources/dbEquipment.xml");
-    databasePaths.put(Student.class, "src/main/resources/dbStudents.xml");
-    databasePaths.put(Subject.class, "src/main/resources/dbSubjects.xml");
-    databasePaths.put(Teacher.class, "src/main/resources/dbTeachers.xml");
+                      "src/main/resources/dbCircumstances/dbCircumstances.xml");
+    databasePaths.put(Elective.class,
+                      "src/main/resources/dbElectives/dbElectives.xml");
+    databasePaths.put(Equipment.class,
+                      "src/main/resources/dbEquipment/dbEquipment.xml");
+    databasePaths.put(Student.class,
+                      "src/main/resources/dbStudents/dbStudents.xml");
+    databasePaths.put(Subject.class,
+                      "src/main/resources/dbSubjects/dbSubjects.xml");
+    databasePaths.put(Teacher.class,
+                      "src/main/resources/dbTeachers/dbTeachers.xml");
     mapper = new XmlMapper();
     mapper.enable(SerializationFeature.INDENT_OUTPUT);
     dependencyMap = new HashMap<>();
@@ -65,7 +71,7 @@ public abstract class GenericDao<K extends Serializable,
    *
    * @param mainObjId      <b>id</b> of object, that is in an object with
    *                       <b>id</b> = dependentObjId
-   * @param dependentObjId <b>id</b> of object, that contains object with 
+   * @param dependentObjId <b>id</b> of object, that contains object with
    *                       <b>id</b> = mainObjId
    */
   private static void updateDependencyMap(Serializable mainObjId,
@@ -84,8 +90,8 @@ public abstract class GenericDao<K extends Serializable,
    * @param updateRefs true if it is needed to update references to objects
    *                   inside entity
    */
-  private static void updateEntityDependencies(ComplexEntity entity,
-                                               boolean updateRefs) {
+  private static void updateEntityDependenciesFromId(ComplexEntity entity,
+                                                     boolean updateRefs) {
     List<List<GenericEntity>> internalEntityLists =
         entity.getInternalEntityLists();
     internalEntityLists.forEach(internalEntities -> {
@@ -120,34 +126,34 @@ public abstract class GenericDao<K extends Serializable,
   }
   
   /**
-   * Calls updateEntityDependencies for each entity inside xmlEntities
+   * Calls updateEntityDependenciesFromId for each entity inside xmlEntities
    *
    * @param xmlEntities XmlComplexEntityList that needs to update its
    *                    entities dependencies
    */
-  private static void updateXmlEntityListDependencies(XmlComplexEntityList xmlEntities) {
+  private static void updateXmlListDependenciesFromId(XmlComplexEntityList xmlEntities) {
     List<ComplexEntity> entities = xmlEntities.getEntities();
-    entities.forEach(entity -> updateEntityDependencies(entity, true));
+    entities.forEach(entity -> updateEntityDependenciesFromId(entity, true));
   }
   
   /**
    * Reads entities from xml file for Class cls and puts them in databaseMap;
    * if entityList is XmlComplexEntityList it calls
-   * updateXmlEntityListDependencies for entityList
+   * updateXmlListDependenciesFromId for entityList
    *
    * @param entityList XmlGenericEntityList&lt;T&gt; to read xml into
    * @param cls        Class&lt;T&gt; for which xml file is picked and with
    *                   which it is read
    * @param <T>        extends GenericEntity
    */
-  private static <T extends GenericEntity> void updateLocalDatabaseList(
+  private static <T extends GenericEntity> void updateDatabaseListLocal(
       XmlGenericEntityList<T> entityList,
       Class<T> cls) {
     try {
       entityList = mapper.readValue(new File(databasePaths.get(cls)),
                                     entityList.getClass());
       if (entityList instanceof XmlComplexEntityList) {
-        updateXmlEntityListDependencies((XmlComplexEntityList) entityList);
+        updateXmlListDependenciesFromId((XmlComplexEntityList) entityList);
       }
       entityList.forEach((item) -> {
         databaseMap.put(item.getId(), item);
@@ -155,25 +161,46 @@ public abstract class GenericDao<K extends Serializable,
     } catch (IOException ex) {
       System.out.println(
           "IO exception in mapper.readValue(" + cls.getSimpleName() + ") in "
-          + "GenericDao::updateLocalDatabaseList\n" + ex.getMessage());
+          + "GenericDao::updateDatabaseListLocal\n" + ex.getMessage());
     }
   }
   
   /**
    * Resets databaseMap according to remote database (calls
-   * updateLocalDatabaseList for each entity class)
+   * updateDatabaseListLocal for each entity class)
    */
   public static void updateLocalDatabase() {
     databaseMap.clear();
     // simple classes
-    updateLocalDatabaseList(new XmlCircumstanceList(), Circumstance.class);
-    updateLocalDatabaseList(new XmlEquipmentList(), Equipment.class);
-    updateLocalDatabaseList(new XmlStudentList(), Student.class);
-    updateLocalDatabaseList(new XmlSubjectList(), Subject.class);
+    updateDatabaseListLocal(new XmlCircumstanceList(), Circumstance.class);
+    updateDatabaseListLocal(new XmlEquipmentList(), Equipment.class);
+    updateDatabaseListLocal(new XmlStudentList(), Student.class);
+    updateDatabaseListLocal(new XmlSubjectList(), Subject.class);
     // complex classes(if class1 is field of class2, then u should update 
     // class1 first)
-    updateLocalDatabaseList(new XmlTeacherList(), Teacher.class);
-    updateLocalDatabaseList(new XmlElectiveList(), Elective.class);
+    updateDatabaseListLocal(new XmlTeacherList(), Teacher.class);
+    updateDatabaseListLocal(new XmlElectiveList(), Elective.class);
+  }
+  
+  private static void updateEntityDependenciesToId(ComplexEntity entity) {
+    List<List<GenericEntity>> internalEntityLists =
+        entity.getInternalEntityLists();
+    internalEntityLists.forEach(internalEntities -> {
+      for (int i = 0; i < internalEntities.size(); i++) {
+        
+        internalEntities.set(i, internalEntities.get(i).createNewInstance());
+      }
+    });
+    List<GenericEntity> internalEntities = entity.getInternalEntities();
+    for (int i = 0; i < internalEntities.size(); i++) {
+      internalEntities.set(i, internalEntities.get(i).createNewInstance());
+    }
+    entity.setInternalEntities(internalEntities);
+  }
+  
+  private static void updateXmlListDependenciesToId(XmlComplexEntityList xmlEntities) {
+    List<ComplexEntity> entities = xmlEntities.getEntities();
+    entities.forEach(entity -> updateEntityDependenciesToId(entity));
   }
   
   /**
@@ -181,11 +208,11 @@ public abstract class GenericDao<K extends Serializable,
    */
   public static void updateGlobalDatabase() {
     XmlGenericEntityList circumstances = new XmlCircumstanceList();
-    XmlGenericEntityList electives = new XmlElectiveList();
     XmlGenericEntityList equipment = new XmlEquipmentList();
     XmlGenericEntityList students = new XmlStudentList();
     XmlGenericEntityList subjects = new XmlSubjectList();
-    XmlGenericEntityList teachers = new XmlTeacherList();
+    XmlComplexEntityList electives = new XmlElectiveList();
+    XmlComplexEntityList teachers = new XmlTeacherList();
     databaseMap.forEach((key, obj) -> {
       switch (obj.getClass().getSimpleName()) {
         case "Circumstance":
@@ -211,6 +238,10 @@ public abstract class GenericDao<K extends Serializable,
                             obj.getClass().getSimpleName());
       }
     });
+    // for each complex entity call updateXmlListDependenciesToId(if class1 
+    // is field of class2, then u should update class1 first)
+    updateXmlListDependenciesToId(teachers);
+    updateXmlListDependenciesToId(electives);
     List<XmlGenericEntityList> entityLists = new ArrayList<>();
     entityLists.add(circumstances);
     entityLists.add(electives);
@@ -270,10 +301,10 @@ public abstract class GenericDao<K extends Serializable,
   @Override
   public void update(T obj) {
     databaseMap.put(obj.getId(), obj);
-    if (obj instanceof ComplexEntity) {
-      updateEntityDependencies((ComplexEntity) obj, false);
-    }
     updateGlobalDatabase();
+    if (obj instanceof ComplexEntity) {
+      updateEntityDependenciesFromId((ComplexEntity) obj, true);
+    }
   }
   
   /**
@@ -285,8 +316,9 @@ public abstract class GenericDao<K extends Serializable,
   public void delete(T obj) {
     databaseMap.remove(obj.getId());
     dependencyMap.get(obj.getId()).forEach(dependentObjId -> {
-      updateEntityDependencies((ComplexEntity) databaseMap.get(dependentObjId),
-                               true);
+      updateEntityDependenciesFromId((ComplexEntity) databaseMap
+                                         .get(dependentObjId),
+                                     true);
     });
     dependencyMap.remove(obj.getId());
     updateGlobalDatabase();

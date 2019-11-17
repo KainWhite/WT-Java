@@ -13,7 +13,7 @@ import java.util.function.Consumer;
  *
  * @param <T> entity class
  */
-public class XmlGenericEntityList<T extends GenericEntity> {
+public abstract class XmlGenericEntityList<T extends GenericEntity> {
   private List<T> entities;
   
   {

@@ -1,13 +1,13 @@
-package main.java.mvc.model;
+package mvc.model;
 
-import main.java.entities.ComplexEntity;
-import main.java.entities.GenericEntity;
-import main.java.exceptions.NotFoundException;
-import main.java.mvc.EntityListOperationEnum;
-import main.java.mvc.dao.DaoFactory;
-import main.java.mvc.dao.daoentities.DaoInterface;
-import main.java.mvc.view.View;
-import main.java.xmlentitylists.XmlGenericEntityList;
+import entities.ComplexEntity;
+import entities.GenericEntity;
+import exceptions.NotFoundException;
+import mvc.EntityListOperationEnum;
+import mvc.dao.DaoFactory;
+import mvc.dao.daoentities.DaoInterface;
+import mvc.view.View;
+import xmlentitylists.XmlGenericEntityList;
 
 import java.beans.IntrospectionException;
 import java.beans.PropertyDescriptor;
@@ -47,7 +47,7 @@ public class Model {
   private GenericEntity getEntityById(String objId) {
     Class genericEntityClass;
     try {
-      genericEntityClass = Class.forName("main.java.entities.GenericEntity");
+      genericEntityClass = Class.forName("entities.GenericEntity");
     } catch (ClassNotFoundException ex) {
       System.out.printf("Unknown class %s\n", "GenericEntity");
       return null;

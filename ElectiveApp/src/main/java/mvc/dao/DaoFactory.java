@@ -1,20 +1,20 @@
-package main.java.mvc.dao;
+package mvc.dao;
 
-import main.java.entities.GenericEntity;
-import main.java.entities.complex.Elective;
-import main.java.entities.complex.Teacher;
-import main.java.entities.simple.Circumstance;
-import main.java.entities.simple.Equipment;
-import main.java.entities.simple.Student;
-import main.java.entities.simple.Subject;
-import main.java.mvc.dao.daoentities.DaoCircumstance;
-import main.java.mvc.dao.daoentities.DaoElective;
-import main.java.mvc.dao.daoentities.DaoEquipment;
-import main.java.mvc.dao.daoentities.DaoGenericEntity;
-import main.java.mvc.dao.daoentities.DaoInterface;
-import main.java.mvc.dao.daoentities.DaoStudent;
-import main.java.mvc.dao.daoentities.DaoSubject;
-import main.java.mvc.dao.daoentities.DaoTeacher;
+import entities.GenericEntity;
+import entities.complex.Elective;
+import entities.complex.Teacher;
+import entities.simple.Circumstance;
+import entities.simple.Equipment;
+import entities.simple.Student;
+import entities.simple.Subject;
+import mvc.dao.daoentities.DaoCircumstance;
+import mvc.dao.daoentities.DaoElective;
+import mvc.dao.daoentities.DaoEquipment;
+import mvc.dao.daoentities.DaoGenericEntity;
+import mvc.dao.daoentities.DaoInterface;
+import mvc.dao.daoentities.DaoStudent;
+import mvc.dao.daoentities.DaoSubject;
+import mvc.dao.daoentities.DaoTeacher;
 
 import java.util.HashMap;
 import java.util.Map;

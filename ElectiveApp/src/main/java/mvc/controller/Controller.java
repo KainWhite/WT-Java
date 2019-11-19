@@ -1,9 +1,9 @@
-package main.java.mvc.controller;
+package mvc.controller;
 
-import main.java.entities.GenericEntity;
-import main.java.mvc.EntityListOperationEnum;
-import main.java.mvc.model.Model;
-import main.java.xmlentitylists.XmlGenericEntityList;
+import entities.GenericEntity;
+import mvc.EntityListOperationEnum;
+import mvc.model.Model;
+import xmlentitylists.XmlGenericEntityList;
 
 import java.lang.reflect.Field;
 import java.util.Scanner;
@@ -32,7 +32,7 @@ public class Controller {
    *                         was incorrect
    * @return valid input integer
    */
-  private int requestIntegerInput(IntegerInputConditionInterface condition,
+  private int requestIntegerInput(mvc.controller.IntegerInputConditionInterface condition,
                                   String messageAsk,
                                   String messageIncorrect) {
     Scanner in = new Scanner(System.in);
@@ -122,10 +122,10 @@ public class Controller {
     }
     Class Tmp;
     try {
-      Tmp = Class.forName("main.java.entities.complex.".concat(className));
+      Tmp = Class.forName("entities.complex.".concat(className));
     } catch (ClassNotFoundException e) {
       try {
-        Tmp = Class.forName("main.java.entities.simple.".concat(className));
+        Tmp = Class.forName("entities.simple.".concat(className));
       } catch (ClassNotFoundException ex) {
         System.out.printf("Unknown class %s\n", className);
         return;

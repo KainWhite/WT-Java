@@ -1,6 +1,6 @@
-package main.java.mvc.dao.daoentities;
+package mvc.dao.daoentities;
 
-import main.java.entities.simple.Equipment;
+import entities.simple.Equipment;
 
 public class DaoEquipment extends GenericDao<String, Equipment> {
   public DaoEquipment() {

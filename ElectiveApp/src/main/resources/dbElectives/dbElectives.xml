@@ -8,6 +8,7 @@
     </Equipment>
     <Students>
       <Student id="a"/>
+      <Student id="x"/>
     </Students>
     <Subject id="math"/>
     <Teacher id="t"/>

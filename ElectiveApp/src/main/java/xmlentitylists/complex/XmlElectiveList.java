@@ -1,10 +1,10 @@
-package main.java.xmlentitylists.complex;
+package xmlentitylists.complex;
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
-import main.java.entities.complex.Elective;
-import main.java.xmlentitylists.XmlComplexEntityList;
+import entities.complex.Elective;
+import xmlentitylists.XmlComplexEntityList;
 
 import java.util.List;
 

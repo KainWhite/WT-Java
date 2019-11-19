@@ -1,6 +1,6 @@
-package main.java.xmlentitylists;
+package xmlentitylists;
 
-import main.java.entities.ComplexEntity;
+import entities.ComplexEntity;
 
 import java.util.List;
 

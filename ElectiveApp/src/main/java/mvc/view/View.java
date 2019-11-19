@@ -1,16 +1,13 @@
-package main.java.mvc.view;
+package mvc.view;
 
-import main.java.entities.GenericEntity;
+import entities.GenericEntity;
 
 import java.lang.reflect.Field;
 
 /**
  * Class for displaying changes
  */
-public class View {
-  public View() {
-  }
-  
+public class View {  
   /**
    * @param obj object to display
    */

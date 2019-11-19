@@ -1,6 +1,4 @@
-package main.java;
-
-import main.java.mvc.controller.Controller;
+import mvc.controller.Controller;
 
 import java.io.IOException;
 import java.util.Arrays;

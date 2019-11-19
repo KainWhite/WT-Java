@@ -1,7 +1,7 @@
-package main.java.entities.simple;
+package entities.simple;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import main.java.entities.GenericEntity;
+import entities.GenericEntity;
 
 @JsonInclude(JsonInclude.Include.NON_DEFAULT)
 public class Equipment extends GenericEntity<String, Equipment> {

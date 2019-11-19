@@ -1,6 +1,6 @@
-package main.java.mvc.dao.daoentities;
+package mvc.dao.daoentities;
 
-import main.java.entities.complex.Teacher;
+import entities.complex.Teacher;
 
 public class DaoTeacher extends GenericDao<String, Teacher> {
   public DaoTeacher() {

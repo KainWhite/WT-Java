@@ -1,4 +1,4 @@
-package main.java.mvc.controller;
+package mvc.controller;
 
 /**
  * Interface for checking integer input

@@ -1,8 +1,8 @@
-package main.java.entities;
+package entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import main.java.exceptions.NotFoundException;
-import main.java.xmlentitylists.XmlGenericEntityList;
+import exceptions.NotFoundException;
+import xmlentitylists.XmlGenericEntityList;
 
 import java.io.Serializable;
 import java.util.List;

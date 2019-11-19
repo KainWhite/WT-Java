@@ -1,23 +1,23 @@
-package main.java.mvc.dao.daoentities;
+package mvc.dao.daoentities;
 
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
-import main.java.entities.ComplexEntity;
-import main.java.entities.GenericEntity;
-import main.java.entities.complex.Elective;
-import main.java.entities.complex.Teacher;
-import main.java.entities.simple.Circumstance;
-import main.java.entities.simple.Equipment;
-import main.java.entities.simple.Student;
-import main.java.entities.simple.Subject;
-import main.java.xmlentitylists.XmlComplexEntityList;
-import main.java.xmlentitylists.XmlGenericEntityList;
-import main.java.xmlentitylists.complex.XmlElectiveList;
-import main.java.xmlentitylists.complex.XmlTeacherList;
-import main.java.xmlentitylists.simple.XmlCircumstanceList;
-import main.java.xmlentitylists.simple.XmlEquipmentList;
-import main.java.xmlentitylists.simple.XmlStudentList;
-import main.java.xmlentitylists.simple.XmlSubjectList;
+import entities.ComplexEntity;
+import entities.GenericEntity;
+import entities.complex.Elective;
+import entities.complex.Teacher;
+import entities.simple.Circumstance;
+import entities.simple.Equipment;
+import entities.simple.Student;
+import entities.simple.Subject;
+import xmlentitylists.XmlComplexEntityList;
+import xmlentitylists.XmlGenericEntityList;
+import xmlentitylists.complex.XmlElectiveList;
+import xmlentitylists.complex.XmlTeacherList;
+import xmlentitylists.simple.XmlCircumstanceList;
+import xmlentitylists.simple.XmlEquipmentList;
+import xmlentitylists.simple.XmlStudentList;
+import xmlentitylists.simple.XmlSubjectList;
 
 import java.io.File;
 import java.io.IOException;
@@ -262,6 +262,8 @@ public abstract class GenericDao<K extends Serializable,
         }
       }
     });
+    updateXmlListDependenciesFromId(teachers);
+    updateXmlListDependenciesFromId(electives);
   }
   
   /**
@@ -301,10 +303,10 @@ public abstract class GenericDao<K extends Serializable,
   @Override
   public void update(T obj) {
     databaseMap.put(obj.getId(), obj);
-    updateGlobalDatabase();
     if (obj instanceof ComplexEntity) {
-      updateEntityDependenciesFromId((ComplexEntity) obj, true);
+      updateEntityDependenciesFromId((ComplexEntity) obj, false);
     }
+    updateGlobalDatabase();
   }
   
   /**
@@ -315,12 +317,15 @@ public abstract class GenericDao<K extends Serializable,
   @Override
   public void delete(T obj) {
     databaseMap.remove(obj.getId());
-    dependencyMap.get(obj.getId()).forEach(dependentObjId -> {
-      updateEntityDependenciesFromId((ComplexEntity) databaseMap
-                                         .get(dependentObjId),
-                                     true);
-    });
-    dependencyMap.remove(obj.getId());
+    Set<Serializable> dependentObjects = dependencyMap.get(obj.getId());
+    if (dependentObjects != null) {
+      dependentObjects.forEach(dependentObjId -> {
+        updateEntityDependenciesFromId((ComplexEntity) databaseMap
+                                           .get(dependentObjId),
+                                       true);
+      });
+      dependencyMap.remove(obj.getId());
+    }
     updateGlobalDatabase();
   }
 }

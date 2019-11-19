@@ -1,6 +1,6 @@
-package main.java.mvc.dao;
+package mvc.dao;
 
-import main.java.mvc.dao.daoentities.DaoInterface;
+import mvc.dao.daoentities.DaoInterface;
 
 /**
  * Interface for DaoFactory

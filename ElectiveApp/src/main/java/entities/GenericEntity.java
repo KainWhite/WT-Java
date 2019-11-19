@@ -1,4 +1,4 @@
-package main.java.entities;
+package entities;
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 

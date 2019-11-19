@@ -1,10 +1,10 @@
-package main.java.xmlentitylists.simple;
+package xmlentitylists.simple;
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
-import main.java.entities.simple.Student;
-import main.java.xmlentitylists.XmlGenericEntityList;
+import entities.simple.Student;
+import xmlentitylists.XmlGenericEntityList;
 
 import java.util.List;
 

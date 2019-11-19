@@ -1,7 +1,7 @@
-package main.java.xmlentitylists;
+package xmlentitylists;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import main.java.entities.GenericEntity;
+import entities.GenericEntity;
 
 import java.util.ArrayList;
 import java.util.Collection;

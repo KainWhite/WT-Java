@@ -1,18 +1,18 @@
-package main.java.entities.complex;
+package entities.complex;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
-import main.java.entities.ComplexEntity;
-import main.java.entities.GenericEntity;
-import main.java.entities.simple.Circumstance;
-import main.java.entities.simple.Equipment;
-import main.java.entities.simple.Student;
-import main.java.entities.simple.Subject;
-import main.java.exceptions.NotFoundException;
-import main.java.xmlentitylists.XmlGenericEntityList;
-import main.java.xmlentitylists.simple.XmlCircumstanceList;
-import main.java.xmlentitylists.simple.XmlEquipmentList;
-import main.java.xmlentitylists.simple.XmlStudentList;
+import entities.ComplexEntity;
+import entities.GenericEntity;
+import entities.simple.Circumstance;
+import entities.simple.Equipment;
+import entities.simple.Student;
+import entities.simple.Subject;
+import exceptions.NotFoundException;
+import xmlentitylists.XmlGenericEntityList;
+import xmlentitylists.simple.XmlCircumstanceList;
+import xmlentitylists.simple.XmlEquipmentList;
+import xmlentitylists.simple.XmlStudentList;
 
 import java.util.ArrayList;
 import java.util.List;

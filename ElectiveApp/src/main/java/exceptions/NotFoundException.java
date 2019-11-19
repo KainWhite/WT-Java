@@ -1,4 +1,4 @@
-package main.java.exceptions;
+package exceptions;
 
 public class NotFoundException extends Exception {
   public NotFoundException(String message) {

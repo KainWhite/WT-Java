@@ -1,6 +1,6 @@
-package main.java.mvc.dao.daoentities;
+package mvc.dao.daoentities;
 
-import main.java.entities.GenericEntity;
+import entities.GenericEntity;
 
 import java.io.Serializable;
 

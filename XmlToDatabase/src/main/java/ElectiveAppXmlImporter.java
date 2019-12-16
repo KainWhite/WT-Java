@@ -4,6 +4,7 @@ import entities.GenericEntity;
 import exceptions.DatabaseException;
 import exceptions.InvalidXmlException;
 import exceptions.XmlReadException;
+import xmlentitylists.XmlElectiveApp;
 import xmlentitylists.XmlGenericEntityList;
 import xmlentitylists.complex.XmlElectiveList;
 import xmlentitylists.complex.XmlTeacherList;
@@ -23,23 +24,23 @@ public class ElectiveAppXmlImporter {
   
   static {
     commonXmlPaths.put(XmlCircumstanceList.class,
-                       "../ElectiveApp/src/main/resources/dbCircumstance"
-                       + "/dbCircumstance");
+                       "../ElectiveApp/src/main/resources/dbCircumstances"
+                       + "/dbCircumstances");
     commonXmlPaths.put(XmlElectiveList.class,
-                       "../ElectiveApp/src/main/resources/dbElective"
-                       + "/dbElective");
+                       "../ElectiveApp/src/main/resources/dbElectives"
+                       + "/dbElectives");
     commonXmlPaths.put(XmlEquipmentList.class,
                        "../ElectiveApp/src/main/resources/dbEquipment"
                        + "/dbEquipment");
     commonXmlPaths.put(XmlStudentList.class,
-                       "../ElectiveApp/src/main/resources/dbStudent"
-                       + "/dbStudent");
+                       "../ElectiveApp/src/main/resources/dbStudents"
+                       + "/dbStudents");
     commonXmlPaths.put(XmlSubjectList.class,
-                       "../ElectiveApp/src/main/resources/dbSubject"
-                       + "/dbSubject");
+                       "../ElectiveApp/src/main/resources/dbSubjects"
+                       + "/dbSubjects");
     commonXmlPaths.put(XmlTeacherList.class,
-                       "../ElectiveApp/src/main/resources/dbTeacher"
-                       + "/dbTeacher");
+                       "../ElectiveApp/src/main/resources/dbTeachers"
+                       + "/dbTeachers");
     mapper.enable(SerializationFeature.INDENT_OUTPUT);
   }
   
@@ -54,12 +55,14 @@ public class ElectiveAppXmlImporter {
   }
   
   public static String importElectiveAppXmls() {
-    String commonElectiveAppXmlPath = "src/main/resources/dbElectiveApp/dbElectiveApp";
+    String commonElectiveAppXmlPath =
+        "src/main/resources/dbElectiveApp/dbElectiveApp";
     final XmlElectiveApp xmlElectiveApp = new XmlElectiveApp();
     
     commonXmlPaths.forEach((xmlClass, commonXmlPath) -> {
       try {
-        XmlValidator.validateXmlAgainstXsd(commonXmlPath + ".xml", commonXmlPath + ".xsd");
+        XmlValidator.validateXmlAgainstXsd(commonXmlPath + ".xml",
+                                           commonXmlPath + ".xsd");
         xmlElectiveApp.setXmlList(readXml(commonXmlPath + ".xml", xmlClass));
       } catch (InvalidXmlException e) {
         System.out.println(e.getMessage());
@@ -69,9 +72,9 @@ public class ElectiveAppXmlImporter {
         System.out.println(e.getMessage());
       }
     });
-    
     try {
-      mapper.writeValue(new File(commonElectiveAppXmlPath + ".xml"), xmlElectiveApp);
+      mapper.writeValue(new File(commonElectiveAppXmlPath + ".xml"),
+                        xmlElectiveApp);
     } catch (IOException e) {
       System.out.println(e.getMessage());
     }

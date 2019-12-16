@@ -1,5 +1,49 @@
-<ElectiveApp>
+<XmlElectiveApp>
   <Circumstances>
-    
+    <Circumstance id="c">
+      <roomNumber>1</roomNumber>
+    </Circumstance>
   </Circumstances>
-</ElectiveApp>
+  <Electives>
+    <Elective id="b">
+      <Circumstances>
+        <Circumstance id="c"/>
+      </Circumstances>
+      <Equipment>
+        <EquipmentItem id="e"/>
+      </Equipment>
+      <Students>
+        <Student id="a"/>
+        <Student id="x"/>
+      </Students>
+      <Subject id="math"/>
+      <Teacher id="t"/>
+    </Elective>
+  </Electives>
+  <Equipment>
+    <EquipmentItem id="e"/>
+  </Equipment>
+  <Students>
+    <Student id="a">
+      <name>Anton</name>
+    </Student>
+    <Student id="x">
+      <name>XXXX</name>
+    </Student>
+    <Student id="z"/>
+  </Students>
+  <Subjects>
+    <Subject id="chem"/>
+    <Subject id="math">
+      <name>MMMAAAATH</name>
+    </Subject>
+  </Subjects>
+  <Teachers>
+    <Teacher id="t">
+      <Subjects>
+        <Subject id="chem"/>
+        <Subject id="math"/>
+      </Subjects>
+    </Teacher>
+  </Teachers>
+</XmlElectiveApp>

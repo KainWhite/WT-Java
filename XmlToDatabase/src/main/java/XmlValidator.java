@@ -11,6 +11,7 @@ import java.io.IOException;
 public class XmlValidator {
   private static final SchemaFactory schemaFactory =
       SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+  
   public static void validateXmlAgainstXsd(String xmlPath, String xsdPath)
       throws InvalidXmlException, DatabaseException {
     try {
@@ -18,10 +19,10 @@ public class XmlValidator {
                    .validate(new StreamSource(new File(xmlPath)));
     } catch (SAXException e) {
       throw new InvalidXmlException(
-          "Xml is not appropriate.\n  Reason: " + e.getMessage());
+          "Xml is not appropriate.\n  Reason: " + e.getMessage() + "\n");
     } catch (IOException e) {
       throw new DatabaseException(
-          "Validation failed.\n  Reason: " + e.getMessage());
+          "Validation failed.\n  Reason: " + e.getMessage() + "\n");
     }
   }
 }

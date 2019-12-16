@@ -1,5 +1,7 @@
+import exceptions.DatabaseException;
+import exceptions.InvalidXmlException;
+
 import java.sql.Connection;
-import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -30,8 +32,15 @@ public class Main {
     } catch (SQLException e) {
       System.out.println(e.getMessage());
     }
-    System.out.println(c);
-    
+    String str = ElectiveAppXmlImporter.importElectiveAppXmls();
+    try {
+      XmlValidator.validateXmlAgainstXsd(str + ".xml", str + ".xsd");
+      System.out.println("Validation succeeded!");
+    } catch (InvalidXmlException e) {
+      System.out.println(e.getMessage());
+    } catch (DatabaseException e) {
+      System.out.println(e.getMessage());
+    }
     if (c != null) {
       try {
         c.close();

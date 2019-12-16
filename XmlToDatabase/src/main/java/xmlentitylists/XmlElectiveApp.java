@@ -1,4 +1,6 @@
-import entities.GenericEntity;
+package xmlentitylists;
+
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import xmlentitylists.XmlGenericEntityList;
 import xmlentitylists.complex.XmlElectiveList;
 import xmlentitylists.complex.XmlTeacherList;
@@ -7,32 +9,38 @@ import xmlentitylists.simple.XmlEquipmentList;
 import xmlentitylists.simple.XmlStudentList;
 import xmlentitylists.simple.XmlSubjectList;
 
-public class XmlElectiveApp extends XmlGenericEntityList<GenericEntity> {
+public class XmlElectiveApp {
+  @JacksonXmlProperty(localName = "Circumstances")
   private XmlCircumstanceList circumstances;
+  @JacksonXmlProperty(localName = "Electives")
   private XmlElectiveList electives;
+  @JacksonXmlProperty(localName = "Equipment")
   private XmlEquipmentList equipment;
+  @JacksonXmlProperty(localName = "Students")
   private XmlStudentList students;
+  @JacksonXmlProperty(localName = "Subjects")
   private XmlSubjectList subjects;
+  @JacksonXmlProperty(localName = "Teachers")
   private XmlTeacherList teachers;
   
   public void setXmlList(XmlGenericEntityList xmlList) {
-    if(xmlList instanceof XmlCircumstanceList) {
-      setCircumstances((XmlCircumstanceList)xmlList);
+    if (xmlList instanceof XmlCircumstanceList) {
+      setCircumstances((XmlCircumstanceList) xmlList);
     }
-    if(xmlList instanceof XmlElectiveList) {
-      setElectives((XmlElectiveList)xmlList);
+    if (xmlList instanceof XmlElectiveList) {
+      setElectives((XmlElectiveList) xmlList);
     }
-    if(xmlList instanceof XmlEquipmentList) {
-      setEquipment((XmlEquipmentList)xmlList);
+    if (xmlList instanceof XmlEquipmentList) {
+      setEquipment((XmlEquipmentList) xmlList);
     }
-    if(xmlList instanceof XmlStudentList) {
-      setStudents((XmlStudentList)xmlList);
+    if (xmlList instanceof XmlStudentList) {
+      setStudents((XmlStudentList) xmlList);
     }
-    if(xmlList instanceof XmlSubjectList) {
-      setSubjects((XmlSubjectList)xmlList);
+    if (xmlList instanceof XmlSubjectList) {
+      setSubjects((XmlSubjectList) xmlList);
     }
-    if(xmlList instanceof XmlTeacherList) {
-      setTeachers((XmlTeacherList)xmlList);
+    if (xmlList instanceof XmlTeacherList) {
+      setTeachers((XmlTeacherList) xmlList);
     }
   }
   

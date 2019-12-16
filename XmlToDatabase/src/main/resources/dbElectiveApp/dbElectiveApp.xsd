@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:include schemaLocation="../../../../../ElectiveApp/src/main/resources/dbCircumstances/dbCircumstances.xsd"/>
+  <xs:include schemaLocation="../../../../../ElectiveApp/src/main/resources/dbElectives/dbElectives.xsd"/>
+  <xs:include schemaLocation="../../../../../ElectiveApp/src/main/resources/dbEquipment/dbEquipment.xsd"/>
+  <xs:include schemaLocation="../../../../../ElectiveApp/src/main/resources/dbStudents/dbStudents.xsd"/>
+  <xs:include schemaLocation="../../../../../ElectiveApp/src/main/resources/dbSubjects/dbSubjects.xsd"/>
+  <xs:include schemaLocation="../../../../../ElectiveApp/src/main/resources/dbTeachers/dbTeachers.xsd"/>
+  
+  <xs:element name="XmlElectiveApp" type="XmlElectiveAppType"/>
+  
+  <xs:complexType name="XmlElectiveAppType">
+    <xs:all>
+      <xs:element type="CircumstancesType" name="Circumstances" minOccurs="0"/>
+      <xs:element type="ElectivesType" name="Electives" minOccurs="0"/>
+      <xs:element type="EquipmentType" name="Equipment" minOccurs="0"/>
+      <xs:element type="StudentsType" name="Students" minOccurs="0"/>
+      <xs:element type="SubjectsType" name="Subjects" minOccurs="0"/>
+      <xs:element type="TeachersType" name="Teachers" minOccurs="0"/>
+    </xs:all>
+  </xs:complexType>
+</xs:schema>

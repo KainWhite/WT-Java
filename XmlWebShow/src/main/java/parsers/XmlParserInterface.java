@@ -4,6 +4,6 @@ import entities.GenericEntity;
 
 import java.util.List;
 
-public interface XmlParser<G extends GenericEntity> {
+public interface XmlParserInterface<G extends GenericEntity> {
   List<G> getEntityListFromFile(String path);
 }

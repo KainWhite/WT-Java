@@ -1,14 +1,14 @@
 package servlets;
 
 import entities.GenericEntity;
-import entities.simple.Circumstance;
+import entities.simple.Student;
 
 import javax.servlet.annotation.WebServlet;
 
-@WebServlet("/circumstances")
-public class XmlCircumstancesShowServlet extends XmlShowServlet {
+@WebServlet("/students")
+public class XmlStudentsShowServlet extends XmlShowServlet {
   @Override
   public Class<? extends GenericEntity> getInternalClass() {
-    return Circumstance.class;
+    return Student.class;
   }
 }

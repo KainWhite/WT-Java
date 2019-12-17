@@ -24,8 +24,7 @@ import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class XmlElectivesStaxParser implements
-                                    XmlParserInterface<Elective> {
+public class XmlElectivesStaxParser implements XmlParserInterface<Elective> {
   @Override
   public List<Elective> getEntityListFromFile(String path) {
     List<Elective> electives = null;

@@ -16,8 +16,7 @@ import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class XmlEquipmentStaxParser implements
-                                    XmlParserInterface<Equipment> {
+public class XmlEquipmentStaxParser implements XmlParserInterface<Equipment> {
   @Override
   public List<Equipment> getEntityListFromFile(String path) {
     List<Equipment> equipment = null;

@@ -9,6 +9,7 @@ import entities.simple.Student;
 import entities.simple.Subject;
 import parsers.XmlParserInterface;
 import parsers.domparsers.XmlCircumstancesDomParser;
+import parsers.saxparsers.teacher.XmlTeachersSaxParser;
 import parsers.staxparsers.XmlElectivesStaxParser;
 import parsers.staxparsers.XmlEquipmentStaxParser;
 import parsers.staxparsers.XmlStudentsStaxParser;
@@ -61,7 +62,7 @@ public abstract class XmlShowServlet<G extends GenericEntity>
     parserCreators.put(Equipment.class, XmlEquipmentStaxParser::new);
     parserCreators.put(Student.class, XmlStudentsStaxParser::new);
     parserCreators.put(Subject.class, XmlSubjectsStaxParser::new);
-//    parserCreators.put(Teacher.class, XmlTeachersSaxParser::new);
+    parserCreators.put(Teacher.class, XmlTeachersSaxParser::new);
     
     jspEntityListNames.put(Circumstance.class, "circumstances");
     jspEntityListNames.put(Elective.class, "electives");

@@ -16,8 +16,7 @@ import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class XmlSubjectsStaxParser implements
-                                   XmlParserInterface<Subject> {
+public class XmlSubjectsStaxParser implements XmlParserInterface<Subject> {
   @Override
   public List<Subject> getEntityListFromFile(String path) {
     List<Subject> subjects = null;

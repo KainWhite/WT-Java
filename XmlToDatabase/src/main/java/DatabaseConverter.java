@@ -61,8 +61,8 @@ public class DatabaseConverter {
                          + "VALUES (?, ?, ?)\n"
                          + "ON DUPLICATE KEY\n"
                          + "  UPDATE roomNumber = ?, time = ?";
-    try {
-      PreparedStatement preparedStatement = c.prepareStatement(insertQuery);
+    try (PreparedStatement preparedStatement = c
+        .prepareStatement(insertQuery)) {
       circumstances.forEach((circumstance) -> {
         try {
           preparedStatement.setString(1, circumstance.getId());
@@ -90,8 +90,8 @@ public class DatabaseConverter {
         + "ON DUPLICATE KEY\n"
         + "  UPDATE circumstances = ?, equipment = ?, students = ?, subject ="
         + " ?, teacher = ?";
-    try {
-      PreparedStatement preparedStatement = c.prepareStatement(insertQuery);
+    try (PreparedStatement preparedStatement = c
+        .prepareStatement(insertQuery)) {
       electives.forEach((elective) -> {
         try {
           preparedStatement.setString(1, elective.getId());
@@ -129,8 +129,8 @@ public class DatabaseConverter {
                          + "VALUES (?, ?)\n"
                          + "ON DUPLICATE KEY\n"
                          + "  UPDATE name = ?";
-    try {
-      PreparedStatement preparedStatement = c.prepareStatement(insertQuery);
+    try (PreparedStatement preparedStatement = c
+        .prepareStatement(insertQuery)) {
       equipment.forEach((equipmentItem) -> {
         try {
           preparedStatement.setString(1, equipmentItem.getId());
@@ -151,8 +151,8 @@ public class DatabaseConverter {
                          + "VALUES (?, ?, ?)\n"
                          + "ON DUPLICATE KEY\n"
                          + "  UPDATE name = ?, form = ?";
-    try {
-      PreparedStatement preparedStatement = c.prepareStatement(insertQuery);
+    try (PreparedStatement preparedStatement = c
+        .prepareStatement(insertQuery)) {
       students.forEach((student) -> {
         try {
           preparedStatement.setString(1, student.getId());
@@ -175,8 +175,8 @@ public class DatabaseConverter {
                          + "VALUES (?, ?)\n"
                          + "ON DUPLICATE KEY\n"
                          + "  UPDATE name = ?";
-    try {
-      PreparedStatement preparedStatement = c.prepareStatement(insertQuery);
+    try (PreparedStatement preparedStatement = c
+        .prepareStatement(insertQuery)) {
       subjects.forEach((subject) -> {
         try {
           preparedStatement.setString(1, subject.getId());
@@ -197,8 +197,8 @@ public class DatabaseConverter {
                          + "VALUES (?, ?, ?)\n"
                          + "ON DUPLICATE KEY\n"
                          + "  UPDATE name = ?, subjects = ?";
-    try {
-      PreparedStatement preparedStatement = c.prepareStatement(insertQuery);
+    try (PreparedStatement preparedStatement = c
+        .prepareStatement(insertQuery)) {
       teachers.forEach((teacher) -> {
         try {
           preparedStatement.setString(1, teacher.getId());

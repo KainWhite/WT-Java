@@ -1,4 +1,3 @@
-import exceptions.DatabaseException;
 import exceptions.InvalidXmlException;
 import org.xml.sax.SAXException;
 
@@ -17,7 +16,7 @@ public class XmlValidator {
     try {
       schemaFactory.newSchema(new File(xsdPath)).newValidator()
                    .validate(new StreamSource(new File(xmlPath)));
-    } catch (SAXException | IOException e){
+    } catch (SAXException | IOException e) {
       throw new InvalidXmlException(
           "Xml is not appropriate.\n  Reason: " + e.getMessage() + "\n");
     }

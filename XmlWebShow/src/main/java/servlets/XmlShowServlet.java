@@ -11,6 +11,7 @@ import parsers.XmlParserInterface;
 import parsers.domparsers.XmlCircumstancesDomParser;
 import parsers.staxparsers.XmlElectivesStaxParser;
 import parsers.staxparsers.XmlEquipmentStaxParser;
+import parsers.staxparsers.XmlStudentsStaxParser;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -57,7 +58,7 @@ public abstract class XmlShowServlet<G extends GenericEntity>
                        XmlCircumstancesDomParser::new);
     parserCreators.put(Elective.class, XmlElectivesStaxParser::new);
     parserCreators.put(Equipment.class, XmlEquipmentStaxParser::new);
-//    parserCreators.put(Student.class, XmlStudentsStaxParser::new);
+    parserCreators.put(Student.class, XmlStudentsStaxParser::new);
 //    parserCreators.put(Subject.class, XmlSubjectsStaxParser::new);
 //    parserCreators.put(Teacher.class, XmlTeachersSaxParser::new);
     

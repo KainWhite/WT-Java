@@ -1,5 +1,5 @@
-import exceptions.DatabaseException;
-import exceptions.InvalidXmlException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -11,6 +11,7 @@ public class Main {
   private static final String sqlUserName = "dbConverter";
   private static final String sqlUserPassword = "123456";
   private static final List<String> localDBPaths = new ArrayList<>();
+  private static final Logger logger = LogManager.getLogger();
   
   {
     localDBPaths
@@ -24,29 +25,24 @@ public class Main {
   }
   
   public static void main(String[] args) {
-    Connection c = null;
+    logger.debug("Application started.");
     try {
+      ElectiveAppXmlImporter.importElectiveAppXmls();
+      logger.debug("ElectiveApp xmls imported.");
+      
+      Connection c = null;
       c = DriverManager.getConnection("jdbc:mysql://localhost/dbElectiveApp?"
                                       + "user=" + sqlUserName + "&password="
                                       + sqlUserPassword);
-    } catch (SQLException e) {
-      System.out.println(e.getMessage());
-    }
-    String str = ElectiveAppXmlImporter.importElectiveAppXmls();
-    try {
-      XmlValidator.validateXmlAgainstXsd(str + ".xml", str + ".xsd");
-      System.out.println("Validation succeeded!");
-    } catch (InvalidXmlException e) {
-      System.out.println(e.getMessage());
-    } catch (DatabaseException e) {
-      System.out.println(e.getMessage());
-    }
-    if (c != null) {
-      try {
+      DatabaseConverter.sendXmlElectiveAppToDB(
+          "src/main/resources/dbElectiveApp/dbElectiveApp", c);
+      if (c != null) {
         c.close();
-      } catch (SQLException e) {
-        System.out.println(e.getMessage());
       }
+    } catch (SQLException e) {
+      logger.fatal(e.getMessage());
     }
+    
+    
   }
 }

@@ -13,16 +13,13 @@ public class XmlValidator {
       SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
   
   public static void validateXmlAgainstXsd(String xmlPath, String xsdPath)
-      throws InvalidXmlException, DatabaseException {
+      throws InvalidXmlException {
     try {
       schemaFactory.newSchema(new File(xsdPath)).newValidator()
                    .validate(new StreamSource(new File(xmlPath)));
-    } catch (SAXException e) {
+    } catch (SAXException | IOException e){
       throw new InvalidXmlException(
           "Xml is not appropriate.\n  Reason: " + e.getMessage() + "\n");
-    } catch (IOException e) {
-      throw new DatabaseException(
-          "Validation failed.\n  Reason: " + e.getMessage() + "\n");
     }
   }
 }

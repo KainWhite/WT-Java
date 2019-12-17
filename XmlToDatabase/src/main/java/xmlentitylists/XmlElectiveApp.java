@@ -1,7 +1,6 @@
 package xmlentitylists;
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
-import xmlentitylists.XmlGenericEntityList;
 import xmlentitylists.complex.XmlElectiveList;
 import xmlentitylists.complex.XmlTeacherList;
 import xmlentitylists.simple.XmlCircumstanceList;

@@ -1,9 +1,10 @@
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import entities.GenericEntity;
-import exceptions.DatabaseException;
 import exceptions.InvalidXmlException;
 import exceptions.XmlReadException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import xmlentitylists.XmlElectiveApp;
 import xmlentitylists.XmlGenericEntityList;
 import xmlentitylists.complex.XmlElectiveList;
@@ -21,6 +22,7 @@ import java.util.Map;
 public class ElectiveAppXmlImporter {
   private static final Map<Class, String> commonXmlPaths = new HashMap<>();
   private static final XmlMapper mapper = new XmlMapper();
+  private static final Logger logger = LogManager.getLogger();
   
   static {
     commonXmlPaths.put(XmlCircumstanceList.class,
@@ -54,7 +56,7 @@ public class ElectiveAppXmlImporter {
     }
   }
   
-  public static String importElectiveAppXmls() {
+  public static void importElectiveAppXmls() {
     String commonElectiveAppXmlPath =
         "src/main/resources/dbElectiveApp/dbElectiveApp";
     final XmlElectiveApp xmlElectiveApp = new XmlElectiveApp();
@@ -64,12 +66,8 @@ public class ElectiveAppXmlImporter {
         XmlValidator.validateXmlAgainstXsd(commonXmlPath + ".xml",
                                            commonXmlPath + ".xsd");
         xmlElectiveApp.setXmlList(readXml(commonXmlPath + ".xml", xmlClass));
-      } catch (InvalidXmlException e) {
-        System.out.println(e.getMessage());
-      } catch (DatabaseException e) {
-        System.out.println(e.getMessage());
-      } catch (XmlReadException e) {
-        System.out.println(e.getMessage());
+      } catch (InvalidXmlException | XmlReadException e) {
+        logger.debug(e.getMessage());
       }
     });
     try {
@@ -78,6 +76,5 @@ public class ElectiveAppXmlImporter {
     } catch (IOException e) {
       System.out.println(e.getMessage());
     }
-    return commonElectiveAppXmlPath;
   }
 }

@@ -11,6 +11,7 @@
     <modules>
         <module>ElectiveApp</module>
         <module>XmlToDatabase</module>
+        <module>XmlWebShow</module>
     </modules>
     
 </project>
